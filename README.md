@@ -1,4 +1,4 @@
-# usefulTips.md
+# useful K8S commands
 
 ## create a deployment
 
