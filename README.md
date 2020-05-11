@@ -44,3 +44,16 @@ nic@bionic1:~$
 ## label a pod
 
 kubectl label pods --overwrite nginx-deployment-7c9f54d5f9-grttz app=nginx
+
+## 3 types of service:
+
+### create a cluster IP service
+
+### create a nodetype service
+
+### create a LoadBalancer service
+
+```
+nic@bionic1:~$ kubectl apply -f https://raw.githubusercontent.com/tacobayle/k8sYaml/master/k8sServiceN                                                                       ginxLoadBalancer.yml
+service/nginx-loadbalancer created
+nic@bionic1:~$
