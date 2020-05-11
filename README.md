@@ -40,3 +40,7 @@ kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP        3h42m
 nginx-service   NodePort    10.99.234.174   <none>        80:30080/TCP   7s
 nic@bionic1:~$
 ```
+
+## label a pod
+
+kubectl label pods --overwrite nginx-deployment-7c9f54d5f9-grttz app=nginx
