@@ -25,35 +25,19 @@ nic@bionic1:~$
 nic@bionic1:~$
 ```
 
-## create a service
-
-```
-nic@bionic1:~$
-nic@bionic1:~$ kubectl apply -f https://raw.githubusercontent.com/tacobayle/k8sYaml/master/k8sServiceNginx.yml
-service/nginx-service created
-nic@bionic1:~$
-nic@bionic1:~$
-nic@bionic1:~$
-nic@bionic1:~$ kubectl get services
-NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP        3h42m
-nginx-service   NodePort    10.99.234.174   <none>        80:30080/TCP   7s
-nic@bionic1:~$
-```
-
 ## label a pod
 
 kubectl label pods --overwrite nginx-deployment-7c9f54d5f9-grttz app=nginx
 
 ## 3 types of service:
 
-### create a cluster IP service
-
 ### create a nodetype service
 
-### create a LoadBalancer service
+```
 
 ```
-nic@bionic1:~$ kubectl apply -f https://raw.githubusercontent.com/tacobayle/k8sYaml/master/k8sServiceN                                                                       ginxLoadBalancer.yml
-service/nginx-loadbalancer created
-nic@bionic1:~$
+
+
+### create a LoadBalancer service
+```
+```
