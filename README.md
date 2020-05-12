@@ -1,8 +1,24 @@
 # useful K8S commands
 
+## create a Pod
+
+```
+nic@bionic1:~$ kubectl apply -f https://raw.githubusercontent.com/tacobayle/k8sYaml/master/k8sDPodRadialBusyBoxPlusCurl.yml
+pod/busybox created
+nic@bionic1:~$
+nic@bionic1:~$
+nic@bionic1:~$ kubectl get pod -o wide
+NAME                                READY   STATUS    RESTARTS   AGE   IP           NODE      NOMINATED NODE   READINESS GATES
+busybox                             1/1     Running   0          13s   10.244.2.5   bionic2   <none>           <none>
+nginx-deployment-7c9f54d5f9-bclhm   1/1     Running   0          16h   10.244.1.3   bionic3   <none>           <none>
+nginx-deployment-7c9f54d5f9-grttz   1/1     Running   0          16h   10.244.2.3   bionic2   <none>           <none>
+nic@bionic1:~$
+```
+
 ## create a deployment
 
-```nic@bionic1:~$
+```
+nic@bionic1:~$
 nic@bionic1:~$
 nic@bionic1:~$ kubectl apply -f https://raw.githubusercontent.com/tacobayle/k8sYaml/master/k8sDeploymentNginx.yml
 deployment.apps/nginx-deployment created
