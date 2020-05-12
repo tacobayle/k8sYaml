@@ -15,14 +15,14 @@ spec:
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 10
+          - weight: 20
             preference:
               matchExpressions:
               - key: availability-zone
                 operator: In
                 values:
                 - zone1
-          - weight: 90
+          - weight: 80
             preference:
               matchExpressions:
               - key: availability-zone
