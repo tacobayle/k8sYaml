@@ -3,7 +3,7 @@
 ## create a Pod
 
 ```
-nic@bionic1:~$ kubectl apply -f https://raw.githubusercontent.com/tacobayle/k8sYaml/master/k8sDPodRadialBusyBoxPlusCurl.yml
+nic@bionic1:~$ kubectl apply -f https://raw.githubusercontent.com/tacobayle/k8sYaml/master/k8sPodRadialBusyBoxPlusCurl.yml
 pod/busybox created
 nic@bionic1:~$
 nic@bionic1:~$
