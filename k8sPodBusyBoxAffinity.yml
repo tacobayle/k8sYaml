@@ -28,7 +28,7 @@ spec:
               - key: share-type
                 operator: In
                 values:
-                - dedicated
+                - shared
       containers:
       - args:
         - sleep
