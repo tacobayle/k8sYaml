@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: pref
-  replicas: 6
+  replicas: 10
   template:
     metadata:
       labels:
@@ -15,20 +15,20 @@ spec:
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 80
+          - weight: 70
             preference:
               matchExpressions:
               - key: availability-zone
                 operator: In
                 values:
                 - zone1
-          - weight: 20
+          - weight: 30
             preference:
               matchExpressions:
-              - key: share-type
+              - key: availability-zone
                 operator: In
                 values:
-                - shared
+                - zone2
       containers:
       - args:
         - sleep
