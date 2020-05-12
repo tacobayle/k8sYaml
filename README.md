@@ -41,6 +41,25 @@ nic@bionic1:~$
 nic@bionic1:~$
 ```
 
+## scale a deployment
+
+```
+nic@bionic1:~$
+nic@bionic1:~$ kubectl get deployment -o wide
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES         SELECTOR
+nginx-deployment   2/2     2            2           20h   nginx        nginx:1.15.4   app=nginx
+nic@bionic1:~$
+nic@bionic1:~$
+nic@bionic1:~$ kubectl scale deployment/nginx-deployment --replicas=4
+deployment.apps/nginx-deployment scaled
+nic@bionic1:~$
+nic@bionic1:~$ kubectl get deployment -o wide
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES         SELECTOR
+nginx-deployment   4/4     4            4           20h   nginx        nginx:1.15.4   app=nginx
+nic@bionic1:~$
+nic@bionic1:~$
+```
+
 ## label a pod
 
 kubectl label pods --overwrite nginx-deployment-7c9f54d5f9-grttz app=nginx
