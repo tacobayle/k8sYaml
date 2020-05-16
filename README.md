@@ -15,7 +15,7 @@ nginx-deployment-7c9f54d5f9-grttz   1/1     Running   0          16h   10.244.2.
 nic@bionic1:~$
 ```
 
-## create a deployment
+## create a deployment (nginx)
 
 ```
 nic@bionic1:~$
@@ -40,6 +40,12 @@ nginx-deployment-7c9f54d5f9-grttz   1/1     Running   0          21s   10.244.2.
 nic@bionic1:~$
 nic@bionic1:~$
 ```
+
+## create a deployment (busybox - basic webserver)
+
+
+
+
 
 ## scale a deployment
 
