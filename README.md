@@ -45,7 +45,7 @@ nic@bionic1:~$
 
 ```
 nic@bionic1:~$
-nic@bionic1:~$ kubectl apply -f https://raw.githubusercontent.com/tacobayle/k8sYaml/master/k8sDeploymentBusyBoxFrontEndv1.yml
+nic@bionic1:~$ kubectl apply -f https://raw.githubusercontent.com/tacobayle/k8sYaml/master/k8sDeploymentBusyBoxFrontEndV1.yml
 deployment.apps/web-front created
 nic@bionic1:~$
 nic@bionic1:~$ kubectl get deployment -o wide
