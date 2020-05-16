@@ -43,9 +43,22 @@ nic@bionic1:~$
 
 ## create a deployment (busybox - basic webserver)
 
-
-
-
+```
+nic@bionic1:~$
+nic@bionic1:~$ kubectl apply -f https://raw.githubusercontent.com/tacobayle/k8sYaml/master/k8sDeploymentBusyBoxFrontEndv1.yml
+deployment.apps/web-front created
+nic@bionic1:~$
+nic@bionic1:~$ kubectl get deployment -o wide
+NAME        READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES               SELECTOR
+web-front   3/3     3            3           76s   web-front    k8s.gcr.io/busybox   app=web-front
+nic@bionic1:~$
+nic@bionic1:~$ kubectl get pods -o wide
+NAME                         READY   STATUS    RESTARTS   AGE   IP            NODE      NOMINATED NODE   READINESS GATES
+web-front-58fdbdf559-5t75h   1/1     Running   0          42s   10.244.1.22   bionic3   <none>           <none>
+web-front-58fdbdf559-qrqtl   1/1     Running   0          42s   10.244.2.18   bionic2   <none>           <none>
+web-front-58fdbdf559-wfvwh   1/1     Running   0          42s   10.244.1.23   bionic3   <none>           <none>
+nic@bionic1:~$
+```
 
 ## scale a deployment
 
