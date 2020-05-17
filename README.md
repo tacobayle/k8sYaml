@@ -41,7 +41,7 @@ nic@bionic1:~$
 nic@bionic1:~$
 ```
 
-## create a deployment (busybox - basic webserver)
+## create a deployment (busybox - basic webserver) with service
 
 ```
 nic@bionic1:~$
@@ -58,6 +58,17 @@ web-front-58fdbdf559-5t75h   1/1     Running   0          42s   10.244.1.22   bi
 web-front-58fdbdf559-qrqtl   1/1     Running   0          42s   10.244.2.18   bionic2   <none>           <none>
 web-front-58fdbdf559-wfvwh   1/1     Running   0          42s   10.244.1.23   bionic3   <none>           <none>
 nic@bionic1:~$
+nic@bionic1:~$
+nic@bionic1:~$ kubectl apply -f https://raw.githubusercontent.com/tacobayle/k8sYaml/master/k8sServiceBusyBoxFrontEndV1.yml
+service/web-front created
+nic@bionic1:~$
+nic@bionic1:~$
+nic@bionic1:~$ kubectl get svc
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        19h
+web-front    NodePort    10.107.27.252   <none>        80:30731/TCP   7s
+nic@bionic1:~$
+
 ```
 
 ## scale a deployment
