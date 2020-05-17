@@ -68,7 +68,6 @@ NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        19h
 web-front    NodePort    10.107.27.252   <none>        80:30731/TCP   7s
 nic@bionic1:~$
-
 ```
 
 ## scale a deployment
