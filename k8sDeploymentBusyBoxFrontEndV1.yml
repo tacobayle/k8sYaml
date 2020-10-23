@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-front
+  name: web-front1
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: web-front
+      app: web-front1
   template:
     metadata:
-      name: web-front
+      name: web-front1
       labels:
-        app: web-front
+        app: web-front1
     spec:
       containers:
-        - name: web-front
+        - name: web-front1
           image: tacobayle/busybox-v1
           command: [ "sh", "-c"]
           args:
