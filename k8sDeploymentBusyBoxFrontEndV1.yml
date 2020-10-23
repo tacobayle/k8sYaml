@@ -6,15 +6,15 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: web-front1
+      app: web-front
   template:
     metadata:
-      name: web-front1
+      name: web-front
       labels:
-        app: web-front1
+        app: web-front
     spec:
       containers:
-        - name: web-front1
+        - name: web-front
           image: tacobayle/busybox-v1
           command: [ "sh", "-c"]
           args:
