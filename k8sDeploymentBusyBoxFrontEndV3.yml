@@ -14,7 +14,7 @@ spec:
         app: web-front3
     spec:
       containers:
-        - name: web-front
+        - name: web-front3
           image: tacobayle/busybox-v3
           command: [ "sh", "-c"]
           args:
