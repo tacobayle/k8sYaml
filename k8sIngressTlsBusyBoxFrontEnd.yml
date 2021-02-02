@@ -6,7 +6,7 @@ spec:
   tls:
     - host:
         - tls.vmw.avidemo.fr
-      secretName: cert1
+      secretName: certif1
 
   rules:
     - host: tls.vmw.avidemo.fr

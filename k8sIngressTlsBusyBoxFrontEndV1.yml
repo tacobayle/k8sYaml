@@ -5,14 +5,14 @@ metadata:
 spec:
   tls:
   - hosts:
-     - tlsweb1.vmw.avidemo.fr
+     - tlsweb.vmw.avidemo.fr
     secretName: cert1
 
   rules:
-    - host: tlsweb1.vmw.avidemo.fr
-      http:
-        paths:
-          - backend:
+  - host: tlsweb1.vmw.avidemo.fr
+    http:
+      paths:
+        - backend:
               serviceName: web-front1
               servicePort: 80
             path: /
