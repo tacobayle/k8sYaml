@@ -3,8 +3,9 @@ kind: Ingress
 metadata:
   name: tls
 spec:
-  rules:
-    - host: tls.vmw.avidemo.fr
+  tls:
+    - host:
+        - tls.vmw.avidemo.fr
       secretName: cert1
       http:
         paths:
