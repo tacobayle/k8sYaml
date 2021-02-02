@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: web-front-1
+  name: web1
 spec:
   rules:
     - host: webfront1.vmw.avidemo.fr
