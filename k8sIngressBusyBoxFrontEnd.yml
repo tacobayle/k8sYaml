@@ -8,14 +8,14 @@ spec:
       http:
         paths:
           - backend:
-              serviceName: web-front1
+              serviceName: web-front-1
               servicePort: 80
             path: /v1
           - backend:
-              serviceName: web-front2
+              serviceName: web-front-2
               servicePort: 80
             path: /v2
           - backend:
-              serviceName: web-front3
+              serviceName: web-front-3
               servicePort: 80
             path: /v3
