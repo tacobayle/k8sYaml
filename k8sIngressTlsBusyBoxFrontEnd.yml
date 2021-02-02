@@ -16,3 +16,7 @@ spec:
               serviceName: web-front-1
               servicePort: 80
             path: /v1
+          - backend:
+              serviceName: web-front-2
+              servicePort: 80
+            path: /v2
