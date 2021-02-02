@@ -4,8 +4,7 @@ metadata:
   name: tls
 spec:
   tls:
-    - host:
-        - tls.vmw.avidemo.fr
+    - host: tls.vmw.avidemo.fr
       secretName: certif1
 
   rules:
