@@ -7,6 +7,9 @@ spec:
     - host:
         - tls.vmw.avidemo.fr
       secretName: cert1
+
+  rules:
+    - host: tls.vmw.avidemo.fr
       http:
         paths:
           - backend:
