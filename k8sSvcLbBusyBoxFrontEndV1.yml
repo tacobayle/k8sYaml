@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: web1.vmw.avidemo.fr
+  name: web1
 spec:
   type: LoadBalancer
   ports:
