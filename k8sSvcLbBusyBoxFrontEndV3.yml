@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: avisvc-lb-web-front3
+  name: web3
 spec:
   type: LoadBalancer
   ports:
