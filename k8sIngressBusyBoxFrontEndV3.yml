@@ -1,13 +1,13 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: web-front-3
+  name: web3
 spec:
   rules:
-    - host: webfront3.vmw.avidemo.fr
+    - host: web3.vmw.avidemo.fr
       http:
         paths:
           - backend:
-              serviceName: web-front3
+              serviceName: web-front-3
               servicePort: 80
             path: /

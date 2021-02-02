@@ -4,10 +4,10 @@ metadata:
   name: web1
 spec:
   rules:
-    - host: webfront1.vmw.avidemo.fr
+    - host: web1.vmw.avidemo.fr
       http:
         paths:
           - backend:
-              serviceName: web-front1
+              serviceName: web-front-1
               servicePort: 80
             path: /
