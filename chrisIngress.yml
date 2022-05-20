@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: guestbook
+spec:
+  rules:
+    - host: guestbook.tkc.altherr.info
+      http:
+        paths:
+          - backend:
+              serviceName: web-front-1
+              servicePort: 80
+            path: /guestbook
