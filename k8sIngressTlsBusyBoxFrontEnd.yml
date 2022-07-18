@@ -5,10 +5,10 @@ metadata:
 spec:
   tls:
   - hosts:
-     - secure-ingress.vmw.avidemo.fr
+     - secure-ingress.vcenter.avi.com
     secretName: cert01
   rules:
-    - host: secure-ingress.vmw.avidemo.fr
+    - host: secure-ingress.vcenter.avi.com
       http:
         paths:
           - pathType: Prefix

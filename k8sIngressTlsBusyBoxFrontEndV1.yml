@@ -5,11 +5,11 @@ metadata:
 spec:
   tls:
   - hosts:
-     - tlsweb.vmw.avidemo.fr
+     - tlsweb.vcenter.avi.com
     secretName: cert1
 
   rules:
-  - host: tlsweb1.vmw.avidemo.fr
+  - host: tlsweb1.vcenter.avi.com
     http:
       paths:
         - backend:

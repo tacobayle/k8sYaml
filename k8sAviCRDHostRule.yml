@@ -5,6 +5,6 @@ metadata:
   namespace: default
 spec:
   virtualhost:
-    fqdn: secure-ingress.vmw.avidemo.fr
+    fqdn: secure-ingress.vcenter.avi.com
     enableVirtualHost: true
     wafPolicy: System-WAF-Policy

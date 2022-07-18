@@ -4,7 +4,7 @@ metadata:
   name: web3
 spec:
   rules:
-    - host: web3.vmw.avidemo.fr
+    - host: web3.vcenter.avi.com
       http:
         paths:
           - backend:

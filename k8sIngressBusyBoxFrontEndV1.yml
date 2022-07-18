@@ -4,7 +4,7 @@ metadata:
   name: web1
 spec:
   rules:
-    - host: web1.vmw.avidemo.fr
+    - host: web1.vcenter.avi.com
       http:
         paths:
           - backend:

@@ -4,7 +4,7 @@ metadata:
   name: ingress
 spec:
   rules:
-    - host: ingress.vmw.avidemo.fr
+    - host: ingress.vcenter.avi.com
       http:
         paths:
           - pathType: Prefix

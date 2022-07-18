@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   virtualhost:
-    fqdn: ingress.vmw.avidemo.fr
+    fqdn: ingress.vcenter.avi.com
     enableVirtualHost: true
     tls: # optional
       sslKeyCertificate:
