@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sctp
+  annotations:
+    aviinfrasetting.ako.vmware.com/name: infra-setting-1
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3860
+      targetPort: 3868
+      protocol: SCTP
+  selector:
+    app: sctp

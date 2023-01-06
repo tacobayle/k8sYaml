@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sctp
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3860
+      targetPort: 9090
+      protocol: SCTP
+  selector:
+    app: sctp
+
+
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: server
+#  namespace: default
+#spec:
+#  ports:
+#    - port: 80
+#      protocol: SCTP
+#      targetPort: 9090
+#  selector:
+#    app: server
+#  type: LoadBalancer
