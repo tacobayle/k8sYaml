@@ -8,3 +8,7 @@ spec:
     fqdn: ingress.vcenter.avi.com
     enableVirtualHost: true
     wafPolicy: System-WAF-Policy
+    tls: # optional
+      sslKeyCertificate:
+        name: System-Default-Cert-EC
+        type: ref
