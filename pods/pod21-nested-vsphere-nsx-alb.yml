@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: test-pod3
+  name: pod21
 spec:
   containers:
-    - name: test-container3
+    - name: container21
       image: tacobayle/ubuntu-automation1:latest
       command: [ "/bin/sh", "-c", "/bin/bash /build/apply.sh" ]
       env:
@@ -74,5 +74,5 @@ spec:
   volumes:
     - name: config-volume
       configMap:
-        name: configmap3
+        name: configmap21
   restartPolicy: Never

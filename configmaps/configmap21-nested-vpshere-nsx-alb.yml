@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: configmap2
+  name: configmap21
   namespace: default
 data:
   variables.json: |
@@ -11,7 +11,7 @@ data:
         "datacenter": "sof2-01-vc08",
         "cluster": "sof2-01-vc08c01",
         "datastore": "sof2-01-vc08c01-vsan",
-        "folder": "nic-vSphere8-NSX",
+        "folder": "nic-vSphere8-NSX-ALB",
         "networks": {
           "vsphere": {
             "management": {
@@ -23,7 +23,8 @@ data:
               "external_gw_ip": "10.41.134.170",
               "vcsa_nested_ip": "10.41.134.174",
               "nsx_nested_ip": "10.41.134.175",
-              "nsx_edge_nested_ips": ["10.41.134.176", "10.41.134.177"]
+              "nsx_edge_nested_ips": ["10.41.134.176", "10.41.134.177"],    
+              "avi_nested_ip": "10.41.134.178"
             },
             "vmotion": {
               "name": "vxw-dvs-34-virtualwire-120-sid-1080119-sof2-01-vc08-avi-dev116",
@@ -66,9 +67,6 @@ data:
         }
       },
       "external_gw": {
-        "cpu": 2,
-        "memory": 4096,
-        "disk": 20,
         "bind": {
           "forwarders": ["10.23.108.1", "10.23.108.2", "10.16.142.111"],
           "domain": "alb.com"
@@ -113,7 +111,7 @@ data:
           "edge_node": {
             "size": "medium",
             "basename": "edge-0",
-            "description": "number of edge deployed based on .vsphere_underlay.networks.vsphere.management.nsx_edge_nested_ips"
+            "description": "number of edge deployed based on .vsphere_underlay.networks.vsphere.management.nsx_edge_nested_ips"    
           },
           "edge_clusters":
           [
@@ -153,12 +151,14 @@ data:
             {
               "display_name": "my-segment-server-1",
               "tier1": "my-tier1-A",
-              "cidr": "100.100.21.0/24"
+              "cidr": "100.100.21.0/24",
+              "app_ips": ["100.100.21.11", "100.100.21.12"]
             },
             {
               "display_name": "my-segment-server-2",
               "tier1": "my-tier1-A",
-              "cidr": "100.100.22.0/24"
+              "cidr": "100.100.22.0/24",
+              "app_ips": ["100.100.22.11"]
             },
             {
               "display_name": "my-segment-vip-1",
@@ -171,7 +171,89 @@ data:
               "cidr": "100.100.32.0/24"
             }
           ]
+        }    
+      },
+      "avi": {
+        "ova_url": "http://10.41.135.46:8000/controller-22.1.3-9096.ova",
+        "cpu": 8,
+        "memory": 24768,
+        "disk": 128,
+        "version": "22.1.3",
+        "config": {
+          "cloud": {
+            "type": "CLOUD_NSXT",
+            "obj_name_prefix": "AVICTRL",
+            "network_management": {
+              "name": "my-segment-mgmt",
+              "avi_ipam_pool_se": "100.100.11.210-100.100.11.230"
+            },
+            "networks_data": [
+              {
+                "name": "my-segment-vip-1",
+                "avi_ipam_pool_se": "100.100.31.210-100.100.31.230",
+                "avi_ipam_vip": {
+                  "cidr": "100.100.131.0/24",
+                  "pool": "100.100.131.210-100.100.131.230"
+                }
+              },
+              {
+                "name": "my-segment-vip-2",
+                "avi_ipam_pool_se": "100.100.32.210-100.100.32.230",
+                "avi_ipam_vip": {
+                  "cidr": "100.100.132.0/24",
+                  "pool": "100.100.132.210-100.100.132.230"
+                }
+              }
+            ],
+            "service_engine_groups": [
+              {
+                "name": "Default-Group",
+                "ha_mode": "HA_MODE_SHARED_PAIR",
+                "min_scaleout_per_vs": 2,
+                "buffer_se": 0,
+                "extra_shared_config_memory": 0,
+                "vcenter_folder": "Avi-SE-Default-Group",
+                "vcpus_per_se": 2,
+                "memory_per_se": 2048,
+                "disk_per_se": 25,
+                "realtime_se_metrics": {
+                  "enabled": true,
+                  "duration": 0
+                }
+              },
+              {
+                "name": "seGroupGslb",
+                "ha_mode": "HA_MODE_SHARED",
+                "min_scaleout_per_vs": 1,
+                "buffer_se": 0,
+                "extra_shared_config_memory": 0,
+                "vcenter_folder": "Avi-SE-GSLB",
+                "vcpus_per_se": 2,
+                "memory_per_se": 2048,
+                "disk_per_se": 25,
+                "realtime_se_metrics": {
+                  "enabled": true,
+                  "duration": 0
+                }
+              }
+            ],              
+            "virtual_services": {
+              "description": "http VS(s) will be auto configured by the automation script based on pool from nsx.config.segments_overlay[].app_ips",
+              "dns": [
+                {
+                  "name": "app-dns",
+                  "network_ref": "my-segment-vip-2",
+                  "se_group_ref": "seGroupGslb",
+                  "services": [
+                    {
+                      "port": 53
+                    }
+                  ]
+                }
+              ]
+            }    
+          }
         }
-      }
+      }    
     }
 

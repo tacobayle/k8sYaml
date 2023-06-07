@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: configmap3
+  name: configmap4
   namespace: default
 data:
   variables.json: |
@@ -11,7 +11,7 @@ data:
         "datacenter": "sof2-01-vc08",
         "cluster": "sof2-01-vc08c01",
         "datastore": "sof2-01-vc08c01-vsan",
-        "folder": "nic-vSphere8-NSX-Avi",
+        "folder": "nic-vSphere8-NSX-alb-vcd",
         "networks": {
           "vsphere": {
             "management": {
@@ -24,7 +24,8 @@ data:
               "vcsa_nested_ip": "10.41.134.174",
               "nsx_nested_ip": "10.41.134.175",
               "avi_nested_ip": "10.41.134.176",
-              "nsx_edge_nested_ips": ["10.41.134.177", "10.41.134.178"]
+              "nsx_edge_nested_ips": ["10.41.134.177", "10.41.134.178"],
+              "vcd_nested_ip": "10.41.134.179"
             },
             "vmotion": {
               "name": "vxw-dvs-34-virtualwire-120-sid-1080119-sof2-01-vc08-avi-dev116",
@@ -34,6 +35,7 @@ data:
             "vsan": {
               "name": "vxw-dvs-34-virtualwire-119-sid-1080118-sof2-01-vc08-avi-dev115",
               "esxi_ips": ["100.64.132.41", "100.64.132.42", "100.64.132.43"],
+              "vcd_nested_ip": "100.64.132.50",
               "netmask": "255.255.255.0"
             }
           },
@@ -213,8 +215,8 @@ data:
                 "buffer_se": 0,
                 "extra_shared_config_memory": 0,
                 "vcenter_folder": "Avi-SE-Default-Group",
-                "vcpus_per_se": 1,
-                "memory_per_se": 1024,
+                "vcpus_per_se": 2,
+                "memory_per_se": 2048,
                 "disk_per_se": 25,
                 "realtime_se_metrics": {
                   "enabled": true,
@@ -228,8 +230,8 @@ data:
                 "buffer_se": 0,
                 "extra_shared_config_memory": 0,
                 "vcenter_folder": "Avi-SE-GSLB",
-                "vcpus_per_se": 1,
-                "memory_per_se": 1024,
+                "vcpus_per_se": 2,
+                "memory_per_se": 2048,
                 "disk_per_se": 25,
                 "realtime_se_metrics": {
                   "enabled": true,
@@ -264,6 +266,23 @@ data:
             }    
           }
         }
-      }    
+      },
+      "vcd" : {
+        "ova_url": "http://10.41.135.46:8000/VMware_Cloud_Director-10.4.1.9360-21373231_OVF10.ova",
+        "vcd_size_description": "primary medium will be deployed - see https://docs.vmware.com/en/VMware-Cloud-Director/10.4/VMware-Cloud-Director-Install-Configure-Upgrade-Guide/GUID-80E5D617-7266-4301-935B-19B96E395549.html",
+        "config": {
+          "orgs": [
+            {
+              "name": "org1"
+            },
+            {
+              "name": "org2"
+            },
+            {
+              "name": "org3"
+            }        
+          ]
+        }
+      }
     }
 
