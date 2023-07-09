@@ -12,6 +12,7 @@ data:
         "cluster": "sof2-01-vc08c01",
         "datastore": "sof2-01-vc08c01-vsan",
         "folder": "nic-vSphere8",
+        "networks_vsphere_dual_attached": false,
         "networks": {
           "vsphere": {
             "management": {
@@ -24,13 +25,13 @@ data:
               "vcsa_nested_ip": "10.41.134.214"
             },
             "vmotion": {
-              "name": "vxw-dvs-34-virtualwire-120-sid-1080119-sof2-01-vc08-avi-dev116",
-              "esxi_ips": ["100.64.133.31", "100.64.133.32", "100.64.133.33"],
+              "name": "vxw-dvs-34-virtualwire-119-sid-1080118-sof2-01-vc08-avi-dev115",
+              "esxi_ips": ["100.64.132.31", "100.64.132.32", "100.64.132.33"],
               "netmask": "255.255.255.0"
             },
             "vsan": {
-              "name": "vxw-dvs-34-virtualwire-119-sid-1080118-sof2-01-vc08-avi-dev115",
-              "esxi_ips": ["100.64.132.31", "100.64.132.32", "100.64.132.33"],
+              "name": "vxw-dvs-34-virtualwire-120-sid-1080119-sof2-01-vc08-avi-dev116",
+              "esxi_ips": ["100.64.133.31", "100.64.133.32", "100.64.133.33"],
               "netmask": "255.255.255.0"
             }
           }

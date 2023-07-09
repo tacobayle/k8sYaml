@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: configmap11
+  name: configmap11-nested-vsphere-alb
   namespace: default
 data:
   variables.json: |
