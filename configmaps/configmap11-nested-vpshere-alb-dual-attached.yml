@@ -11,7 +11,7 @@ data:
         "datacenter": "sof2-01-vc08",
         "cluster": "sof2-01-vc08c01",
         "datastore": "sof2-01-vc08c01-vsan",
-        "folder": "nic-vSphere8-tanzu-alb-wo-nsx",
+        "folder": "nic-nested-vsphere-alb",
         "networks_vsphere_dual_attached": true,
         "networks": {
           "vsphere": {
@@ -48,6 +48,33 @@ data:
               "name": "vxw-dvs-34-virtualwire-122-sid-1080121-sof2-01-vc08-avi-dev118",
               "cidr": "10.0.118.0/24",
               "app_ips": ["10.0.118.11", "10.0.118.12", "10.0.118.13"],
+              "k8s_clusters":
+              [
+                {
+                  "cluster_name": "cluster1",
+                  "cluster_ips": ["10.0.118.21", "10.0.118.22", "10.0.118.23"],
+                  "k8s_version": "1.26.6-00",
+                  "cni": "calico",
+                  "cni_version": "v3.26.1",
+                  "ako_version": "1.10.1"
+                },
+                {
+                  "cluster_name": "cluster2",
+                  "cluster_ips": ["10.0.118.31", "10.0.118.32", "10.0.118.33"],
+                  "k8s_version": "1.26.6-00",
+                  "cni": "antrea",
+                  "cni_version": "v1.12.1",
+                  "ako_version": "1.10.1"
+                },
+                {
+                  "cluster_name": "cluster3",
+                  "cluster_ips": ["10.0.118.41", "10.0.118.42", "10.0.118.43"],
+                  "k8s_version": "1.26.6-00",
+                  "cni": "cilium",
+                  "cni_version": "v0.15.3",
+                  "ako_version": "1.10.1"
+                }    
+              ],
               "netmask": "255.255.255.0",
               "avi_ipam_pool": "10.0.118.100-10.0.118.129",
               "external_gw_ip": "10.0.118.1"
@@ -122,7 +149,6 @@ data:
                 "min_scaleout_per_vs": 2,
                 "buffer_se": 0,
                 "extra_shared_config_memory": 0,
-                "vcenter_folder": "NSX-ALB-SE-Default-Group",
                 "vcpus_per_se": 2,
                 "memory_per_se": 2048,
                 "disk_per_se": 25,

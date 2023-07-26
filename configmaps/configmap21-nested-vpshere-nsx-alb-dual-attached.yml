@@ -12,6 +12,7 @@ data:
         "cluster": "sof2-01-vc08c01",
         "datastore": "sof2-01-vc08c01-vsan",
         "folder": "nic-vSphere8-NSX-ALB",
+        "networks_vsphere_dual_attached": true,    
         "networks": {
           "vsphere": {
             "management": {
