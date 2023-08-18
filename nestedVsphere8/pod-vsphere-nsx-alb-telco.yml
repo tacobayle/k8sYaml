@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod2
+  name: pod-vsphere-nsx-alb-telco
 spec:
   containers:
-    - name: container2
+    - name: container-vsphere-nsx-alb-telco
       image: tacobayle/ubuntu-automation1:latest
       command: [ "/bin/sh", "-c", "/bin/bash /build/apply.sh" ]
       env:
@@ -48,12 +48,36 @@ spec:
             secretKeyRef:
               name: nsx-license
               key: password
+        - name: TF_VAR_avi_password
+          valueFrom:
+            secretKeyRef:
+              name: avi-password
+              key: password
+        - name: TF_VAR_avi_old_password
+          valueFrom:
+            secretKeyRef:
+              name: avi-old-password
+              key: password
+        - name: TF_VAR_docker_registry_username
+          valueFrom:
+            secretKeyRef:
+              name: docker
+              key: username
+        - name: TF_VAR_docker_registry_password
+          valueFrom:
+            secretKeyRef:
+              name: docker
+              key: password
+        - name: TF_VAR_docker_registry_email
+          valueFrom:
+            secretKeyRef:
+              name: docker
+              key: email
       volumeMounts:
         - name: config-volume
           mountPath: /etc/config
   volumes:
     - name: config-volume
       configMap:
-        name: configmap2
+        name: cm-vpshere-nsx-alb-telco
   restartPolicy: Never
-

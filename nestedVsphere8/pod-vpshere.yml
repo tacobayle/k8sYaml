@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-vsphere
+spec:
+  containers:
+    - name: container-vsphere
+      image: tacobayle/ubuntu-automation1:latest
+      command: [ "/bin/sh", "-c", "/bin/bash /build/apply.sh" ]
+      env:
+        - name: TF_VAR_vsphere_underlay_username
+          valueFrom:
+            secretKeyRef:
+              name: vsphere-underlay
+              key: username
+        - name: TF_VAR_vsphere_underlay_password
+          valueFrom:
+            secretKeyRef:
+              name: vsphere-underlay
+              key: password
+        - name: TF_VAR_ubuntu_password
+          valueFrom:
+            secretKeyRef:
+              name: ubuntu-password
+              key: password
+        - name: TF_VAR_bind_password
+          valueFrom:
+            secretKeyRef:
+              name: bind-password
+              key: password
+        - name: TF_VAR_nested_esxi_root_password
+          valueFrom:
+            secretKeyRef:
+              name: nested-esxi
+              key: password
+        - name: TF_VAR_vsphere_nested_password
+          valueFrom:
+            secretKeyRef:
+              name: nested-vsphere
+              key: password
+      volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+  volumes:
+    - name: config-volume
+      configMap:
+        name: cm-vsphere
+  restartPolicy: Never
+

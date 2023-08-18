@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod11-nested-vsphere-alb
+  name: pod-vsphere-tanzu-alb-wo-nsx
 spec:
   containers:
     - name: container11-nested-vsphere-alb
@@ -58,12 +58,17 @@ spec:
             secretKeyRef:
               name: docker
               key: password
+        - name: TF_VAR_docker_registry_email
+          valueFrom:
+            secretKeyRef:
+              name: docker
+              key: email
       volumeMounts:
         - name: config-volume
           mountPath: /etc/config
   volumes:
     - name: config-volume
       configMap:
-        name: configmap11-nested-vsphere-alb
+        name: cm-vsphere-tanzu-alb-wo-nsx
   restartPolicy: Never
 

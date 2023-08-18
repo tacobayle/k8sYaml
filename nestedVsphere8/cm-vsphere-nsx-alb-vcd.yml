@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: configmap21-nested-vpshere-nsx-alb
+  name: cm-vsphere-nsx-alb-vcd
   namespace: default
 data:
   variables.json: |
@@ -11,21 +11,21 @@ data:
         "datacenter": "sof2-01-vc08",
         "cluster": "sof2-01-vc08c01",
         "datastore": "sof2-01-vc08c01-vsan",
-        "folder": "nic-vSphere8-NSX-ALB",
-        "networks_vsphere_dual_attached": true,    
+        "folder": "nic-vSphere8-NSX-alb-vcd",
         "networks": {
           "vsphere": {
             "management": {
               "name": "vxw-dvs-34-virtualwire-3-sid-1080002-sof2-01-vc08-avi-mgmt",
               "netmask": "255.255.252.0",
               "gateway": "10.41.132.1",
-              "esxi_ips": ["10.41.134.171", "10.41.134.172", "10.41.134.173"],
+              "esxi_ips": ["10.41.134.170", "10.41.134.171", "10.41.134.172"],
               "esxi_ips_temp": ["10.41.134.120", "10.41.134.121", "10.41.134.122"],
-              "external_gw_ip": "10.41.134.170",
+              "external_gw_ip": "10.41.134.173",
               "vcsa_nested_ip": "10.41.134.174",
               "nsx_nested_ip": "10.41.134.175",
-              "nsx_edge_nested_ips": ["10.41.134.176", "10.41.134.177"],    
-              "avi_nested_ip": "10.41.134.178"
+              "avi_nested_ip": "10.41.134.176",
+              "nsx_edge_nested_ips": ["10.41.134.177", "10.41.134.178"],
+              "vcd_nested_ip": "10.41.134.179"
             },
             "vmotion": {
               "name": "vxw-dvs-34-virtualwire-120-sid-1080119-sof2-01-vc08-avi-dev116",
@@ -35,6 +35,7 @@ data:
             "vsan": {
               "name": "vxw-dvs-34-virtualwire-119-sid-1080118-sof2-01-vc08-avi-dev115",
               "esxi_ips": ["100.64.132.41", "100.64.132.42", "100.64.132.43"],
+              "vcd_nested_ip": "100.64.132.50",
               "netmask": "255.255.255.0"
             }
           },
@@ -76,7 +77,7 @@ data:
       },
       "vsphere_nested": {
         "vcsa_name": "vcsa-01",
-        "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.1-21815093.iso",
+        "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.0-20519528.iso",
         "datacenter": "dc1",
         "cluster": "cluster1",    
         "sso": {
@@ -84,7 +85,7 @@ data:
         },
         "timezone": "Europe/Paris",
         "esxi": {
-          "iso_url": "http://10.41.135.46:8000/VMware-VMvisor-Installer-8.0U1a-21813344.x86_64.iso",
+          "iso_url": "http://10.41.135.46:8000/VMware-VMvisor-Installer-8.0-20513097.x86_64.iso",
           "basename": "esxi-0",
           "cpu": 24,
           "memory": 131072,
@@ -106,7 +107,7 @@ data:
         }
       },
       "nsx": {
-        "ova_url": "http://10.41.135.46:8000/nsx-unified-appliance-4.1.0.2.0.21761695.ova",
+        "ova_url": "http://10.41.135.46:8000/nsx-unified-appliance-4.0.1.1.0.20598732.ova",
         "nsx_size_description": "medium size will be deployed: 6 cpus, 24576 of memory, 200Go of disk",
         "config": {
           "edge_node": {
@@ -242,7 +243,17 @@ data:
               "description": "http VS(s) will be auto configured by the automation script based on pool from nsx.config.segments_overlay[].app_ips",
               "dns": [
                 {
-                  "name": "app-dns",
+                  "name": "app6-dns",
+                  "network_ref": "my-segment-vip-2",
+                  "se_group_ref": "Default-Group",
+                  "services": [
+                    {
+                      "port": 53
+                    }
+                  ]
+                },
+                {
+                  "name": "app7-gslb",
                   "network_ref": "my-segment-vip-2",
                   "se_group_ref": "seGroupGslb",
                   "services": [
@@ -255,6 +266,23 @@ data:
             }    
           }
         }
-      }    
+      },
+      "vcd" : {
+        "ova_url": "http://10.41.135.46:8000/VMware_Cloud_Director-10.4.1.9360-21373231_OVF10.ova",
+        "vcd_size_description": "primary medium will be deployed - see https://docs.vmware.com/en/VMware-Cloud-Director/10.4/VMware-Cloud-Director-Install-Configure-Upgrade-Guide/GUID-80E5D617-7266-4301-935B-19B96E395549.html",
+        "config": {
+          "orgs": [
+            {
+              "name": "org1"
+            },
+            {
+              "name": "org2"
+            },
+            {
+              "name": "org3"
+            }        
+          ]
+        }
+      }
     }
 

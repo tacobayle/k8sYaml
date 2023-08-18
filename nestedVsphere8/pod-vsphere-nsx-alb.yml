@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod21-nested-vpshere-nsx-alb
+  name: pod-vsphere-nsx-alb
 spec:
   containers:
-    - name: container21-nested-vpshere-nsx-alb
+    - name: container-vsphere-nsx-alb
       image: tacobayle/ubuntu-automation1:latest
       command: [ "/bin/sh", "-c", "/bin/bash /build/apply.sh" ]
       env:
@@ -68,26 +68,16 @@ spec:
             secretKeyRef:
               name: docker
               key: password
-        - name: TF_VAR_vcd_root_password
+        - name: TF_VAR_docker_registry_email
           valueFrom:
             secretKeyRef:
-              name: vcd-root-password
-              key: password
-        - name: TF_VAR_vcd_dbPassword
-          valueFrom:
-            secretKeyRef:
-              name: vcd-db-password
-              key: password
-        - name: TF_VAR_vcd_administrator_password
-          valueFrom:
-            secretKeyRef:
-              name: vcd-administrator-password
-              key: password
+              name: docker
+              key: email
       volumeMounts:
         - name: config-volume
           mountPath: /etc/config
   volumes:
     - name: config-volume
       configMap:
-        name: configmap4
+        name: cm-vpshere-nsx-alb
   restartPolicy: Never
