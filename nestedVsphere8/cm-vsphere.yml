@@ -46,7 +46,7 @@ data:
       },
       "vsphere_nested": {
         "vcsa_name": "vcsa-01",
-        "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.1-21815093.iso",
+        "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.1-22088981.iso",
         "datacenter": "dc1",
         "cluster": "cluster1",    
         "sso": {

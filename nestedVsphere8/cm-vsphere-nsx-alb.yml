@@ -162,12 +162,24 @@ data:
               "tier1": "my-tier1-A",
               "cidr": "100.100.22.0/24",
               "dhcp_ranges": ["100.100.22.50-100.100.22.99"],
-              "app_ips": ["100.100.22.11"],
+              "app_ips": ["100.100.22.11"]
+            },
+            {
+              "display_name": "my-segment-vip-1",
+              "tier1": "my-tier1-A",
+              "cidr": "100.100.31.0/24",
+              "dhcp_ranges": ["100.100.31.50-100.100.31.99"]
+            },
+            {
+              "display_name": "my-segment-vip-2",
+              "tier1": "my-tier1-B",
+              "cidr": "100.100.32.0/24",
+              "dhcp_ranges": ["100.100.32.50-100.100.32.99"],
               "k8s_clusters":
               [
                 {
                   "cluster_name": "cluster1",
-                  "cluster_ips": ["100.100.22.111", "100.100.22.112", "100.100.22.113"],
+                  "cluster_ips": ["100.100.32.111", "100.100.32.112", "100.100.32.113"],
                   "k8s_version": "1.26.6-00",
                   "cni": "calico",
                   "cni_version": "v3.26.1",
@@ -175,7 +187,7 @@ data:
                 },
                 {
                   "cluster_name": "cluster2",
-                  "cluster_ips": ["100.100.22.121", "100.100.22.122", "100.100.22.123"],
+                  "cluster_ips": ["100.100.32.121", "100.100.32.122", "100.100.32.123"],
                   "k8s_version": "1.26.6-00",
                   "cni": "antrea",
                   "cni_version": "v1.12.1",
@@ -183,25 +195,13 @@ data:
                 },
                 {
                   "cluster_name": "cluster3",
-                  "cluster_ips": ["100.100.22.131", "100.100.22.132", "100.100.22.133"],
+                  "cluster_ips": ["100.100.32.131", "100.100.32.132", "100.100.32.133"],
                   "k8s_version": "1.26.6-00",
                   "cni": "cilium",
                   "cni_version": "v0.15.3",
                   "ako_version": "1.10.1"
                 }    
-              ]
-            },
-            {
-              "display_name": "my-segment-vip-1",
-              "tier1": "my-tier1-A",
-              "cidr": "100.100.31.0/24",
-              "dhcp_ranges": ["100.100.31.50-100.100.31.99"],
-            },
-            {
-              "display_name": "my-segment-vip-2",
-              "tier1": "my-tier1-B",
-              "cidr": "100.100.32.0/24"
-              "dhcp_ranges": ["100.100.32.50-100.100.32.99"]
+              ]    
             }
           ]
         }    
