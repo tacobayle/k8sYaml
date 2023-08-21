@@ -58,6 +58,11 @@ spec:
             secretKeyRef:
               name: docker
               key: password
+        - name: TF_VAR_docker_registry_email
+          valueFrom:
+            secretKeyRef:
+              name: docker
+              key: email
       volumeMounts:
         - name: config-volume
           mountPath: /etc/config
