@@ -76,7 +76,7 @@ data:
       },
       "vsphere_nested": {
         "vcsa_name": "vcsa-01",
-        "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.1-21815093.iso",
+        "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.1-22088981.iso",
         "datacenter": "dc1",
         "cluster": "cluster1",    
         "sso": {
@@ -106,7 +106,7 @@ data:
         }
       },
       "nsx": {
-        "ova_url": "http://10.41.135.46:8000/nsx-unified-appliance-4.1.0.2.0.21761695.ova",
+        "ova_url": "http://10.41.135.46:8000/nsx-unified-appliance-4.1.1.0.0.22224317.ova",
         "nsx_size_description": "medium size will be deployed: 6 cpus, 24576 of memory, 200Go of disk",
         "config": {
           "edge_node": {

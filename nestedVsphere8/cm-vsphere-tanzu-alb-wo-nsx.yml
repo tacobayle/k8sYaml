@@ -157,7 +157,7 @@ data:
             "services_cidrs": ["10.97.0.0/24"],
             "pods_cidrs": ["10.245.0.0/21"]
           }
-        ]    
+        ]
       },
       "avi": {
         "ova_url": "http://10.41.135.46:8000/controller-22.1.4-9196.ova",
