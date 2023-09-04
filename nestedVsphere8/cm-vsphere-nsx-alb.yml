@@ -43,7 +43,7 @@ data:
               "name": "vxw-dvs-34-virtualwire-124-sid-1080123-sof2-01-vc08-avi-dev120",
               "tier0_vips": ["172.16.130.110"],
               "tier0_ips": ["172.16.130.111", "172.16.130.112"],
-              "netmask": "255.255.255.0",
+              "cidr": "172.16.130.0/24",
               "external_gw_ip": "172.16.130.100"
             },
             "overlay": {

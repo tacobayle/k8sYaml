@@ -25,7 +25,7 @@ data:
               "vcsa_nested_ip": "10.41.134.154",
               "nsx_nested_ip": "10.41.134.155",
               "nsx_edge_nested_ips": ["10.41.134.156", "10.41.134.157", "10.41.134.158", "10.41.134.159", "10.41.134.160", "10.41.134.161"],    
-              "avi_nested_ip": "10.41.134.178"
+              "avi_nested_ip": "10.41.134.163"
             },
             "vmotion": {
               "name": "vxw-dvs-34-virtualwire-120-sid-1080119-sof2-01-vc08-avi-dev116",
@@ -49,19 +49,19 @@ data:
             "overlay": {
               "name": "vxw-dvs-34-virtualwire-125-sid-1080124-sof2-01-vc08-avi-dev121",
               "nsx_pool": {
-                "cidr": "10.8.11.32/27",
-                "gateway": "10.8.11.33",
-                "start": "10.8.11.34",
-                "end": "10.8.11.62"
+                "cidr": "10.9.11.32/27",
+                "gateway": "10.9.11.33",
+                "start": "10.9.11.34",
+                "end": "10.9.11.62"
               }
             },
             "overlay_edge": {    
               "name": "vxw-dvs-34-virtualwire-126-sid-1080125-sof2-01-vc08-avi-dev122",
               "nsx_pool": {
-                "cidr": "10.8.11.64/27",
-                "gateway": "10.8.11.65",
-                "start": "10.8.11.66",
-                "end": "10.8.11.94"
+                "cidr": "10.9.11.64/27",
+                "gateway": "10.9.11.65",
+                "start": "10.9.11.66",
+                "end": "10.9.11.94"
               }    
             }
           }
@@ -249,13 +249,7 @@ data:
               "user_profile_ref": "/api/useraccountprofile?name=Default-User-Account-Profile"
             }
           ],
-          "ipam": {
-            "networks": [
-              "segment-vip-mgmt", "segment-vip-data", "vip-external-bgp-pg"
-            ]
-          },    
           "cloud": {
-            "name": "Default-Cloud",
             "type": "CLOUD_VCENTER",
             "networks": [
               {
@@ -284,14 +278,14 @@ data:
               },
               {
                 "name": "nsx-external-pg",
-                "avi_ipam_pool": "172.16.120.201-172.16.120.204",
+                "avi_ipam_pool": "172.16.193.201-172.16.193.204",
                 "management": false,
                 "external" : true
               }
             ],
             "additional_subnets": [
               {
-                "name_ref": "vip-external-bgp-pg",
+                "name_ref": "nsx-external-pg",
                 "subnets": [
                   {
                     "cidr": "1.1.1.0/24",
@@ -367,27 +361,16 @@ data:
               }
             ],
             "virtual_services": {
-              "http": [],
               "dns": [
                 {
                   "name": "app-dns",
                   "network_ref": "segment-vip-mgmt",
-                  "se_group_ref": "Default-Group",
-                  "services": [
-                    {
-                      "port": 53
-                    }
-                  ]
+                  "se_group_ref": "Default-Group"
                 },
                 {
                   "name": "app-1",
                   "network_ref": "segment-vip-data",
-                  "se_group_ref": "tkg",
-                  "services": [
-                    {
-                      "port": 53
-                    }
-                  ]
+                  "se_group_ref": "tkg"
                 }
               ]
             }    
@@ -402,13 +385,12 @@ data:
         "tanzu_bin_location": "http://10.41.135.46:8000/tanzu-cli-linux-amd64.tar.gz",
         "k8s_bin_location": "http://10.41.135.46:8000/kubectl-linux-v1.26.5+vmware.2.gz",
         "ova_location": "http://10.41.135.46:8000/ubuntu-2004-kube-v1.26.5+vmware.2-tkg.1-814430d158ce7889d5a7b60efeda67ca.ova",
+        "version": "v2.3.0",
         "ova_network": "segment-mgmt",
         "ova_folder_template": "tkg-template",
         "clusters": {
           "management": {
             "name": "tkg-cluster-mgmt",
-            "vcenter_folder": "tkg-cluster-mgmt",
-            "vcenter_resource_pool": "tkg-cluster-mgmt",
             "avi_cloud_name": "Default-Cloud",
             "avi_control_plane_network": "segment-vip-mgmt",
             "avi_data_network": "segment-vip-mgmt",

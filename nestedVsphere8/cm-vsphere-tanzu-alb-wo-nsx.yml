@@ -146,14 +146,12 @@ data:
         ],
         "tkc_clusters": [
           {
-            "name": "tkg-cluster-1",
+            "name": "cluster-1",
             "namespace_ref": "playground",
-            "k8s_version": "v1.24",
+            "k8s_version": "v1.24.9",
             "control_plane_count": 1,
-            "control_plane_class": "best-effort-small",
+            "vm_class": "best-effort-small",
             "workers_count": 3,
-            "workers_class": "best-effort-small",
-            "cni": "antrea",
             "services_cidrs": ["10.97.0.0/24"],
             "pods_cidrs": ["10.245.0.0/21"]
           }
