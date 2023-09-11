@@ -162,7 +162,7 @@ data:
         "cpu": 8,
         "memory": 24768,
         "disk": 128,
-        "version": "22.1.3",
+        "version": "22.1.4",
         "config": {
           "cloud": {
             "service_engine_groups": [
