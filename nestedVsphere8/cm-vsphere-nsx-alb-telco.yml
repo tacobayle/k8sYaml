@@ -222,33 +222,7 @@ data:
         "disk": 128,
         "version": "22.1.4",
         "config": {
-          "tenants": [
-            {
-              "name": "tkg",
-              "local": true,
-              "config_settings" : {
-                "tenant_vrf": false,
-                "se_in_provider_context": true,
-                "tenant_access_to_provider_se": true
-              }
-            }
-          ],
-          "users": [
-            {
-              "access": [
-                {
-                  "role_ref": "/api/role?name=System-Admin",
-                  "tenant_ref": "/api/tenant?name=admin",
-                  "all_tenants": false
-                }
-              ],
-              "username": "tkg",
-              "name": "tkg",
-              "is_superuser": true,
-              "default_tenant_ref": "/api/tenant?name=admin",
-              "user_profile_ref": "/api/useraccountprofile?name=Default-User-Account-Profile"
-            }
-          ],
+          "domain": "alb-telco.com",
           "cloud": {
             "type": "CLOUD_VCENTER",
             "networks": [
@@ -343,21 +317,6 @@ data:
                   "enabled": true,
                   "duration": 0
                 }
-              },
-              {
-                "name": "tkg",
-                "ha_mode": "HA_MODE_SHARED",
-                "min_scaleout_per_vs": 2,
-                "buffer_se": 0,
-                "vcenter_folder": "avi-seg-tkg",
-                "extra_shared_config_memory": 0,
-                "vcpus_per_se": 2,
-                "memory_per_se": 2048,
-                "disk_per_se": 25,
-                "realtime_se_metrics": {
-                  "enabled": true,
-                  "duration": 0
-                }
               }
             ],
             "virtual_services": {
@@ -366,18 +325,13 @@ data:
                   "name": "app-dns",
                   "network_ref": "segment-vip-mgmt",
                   "se_group_ref": "Default-Group"
-                },
-                {
-                  "name": "app-1",
-                  "network_ref": "segment-vip-data",
-                  "se_group_ref": "tkg"
                 }
               ]
             }    
           },
           "ako": {
             "helm_url": "oci://projects.registry.vmware.com/ako/helm-charts/ako",
-            "deploy_ako": false
+            "ako_version": "1.10.2"
           }
         }
       },
@@ -386,12 +340,9 @@ data:
         "k8s_bin_location": "http://10.41.135.46:8000/kubectl-linux-v1.26.5+vmware.2.gz",
         "ova_location": "http://10.41.135.46:8000/ubuntu-2004-kube-v1.26.5+vmware.2-tkg.1-814430d158ce7889d5a7b60efeda67ca.ova",
         "version": "v2.3.0",
-        "ova_network": "segment-mgmt",
-        "ova_folder_template": "tkg-template",
         "clusters": {
           "management": {
             "name": "tkg-cluster-mgmt",
-            "avi_cloud_name": "Default-Cloud",
             "avi_control_plane_network": "segment-vip-mgmt",
             "avi_data_network": "segment-vip-mgmt",
             "avi_mgmt_cluster_control_plane_vip_network_name": "segment-vip-mgmt",
@@ -399,9 +350,7 @@ data:
             "avi_management_cluster_service_engine_group": "Default-Group",
             "avi_service_engine_group": "Default-Group",
             "cluster_cidr": "100.96.0.0/11",
-            "public_key_path": "/home/ubuntu/.ssh/cloudKey.pub",
             "service_cidr": "100.64.0.0/13",
-            "avi_username": "tkg",
             "vsphere_network": "segment-mgmt",
             "control_plane_disk": "20",
             "control_plane_memory": "4096",
@@ -410,24 +359,15 @@ data:
             "worker_memory": "4096",
             "worker_cpu": "2"
           },
-          "ako_vip_network_name_ref": "vip-external-bgp-pg",
-          "ako_service_type": "ClusterIP",
-          "ako_default_bgp_peer_label_ref": "vrf-1",
-          "ako_service_engine_group_ref": "tkg",
-          "ako_version": "1.7.2",
-          "ako_tenant_ref": "tkg",
           "workloads": [
             {
               "name": "tkg-cluster-workload-1",
               "cni": "antrea",
-              "ssh_username": "capv",
               "antrea_node_port_local": "true",
               "cluster_cidr": "100.96.0.0/11",
               "avi_control_plane_ha_provider": "true",
               "service_cidr": "100.64.0.0/13",
               "vsphere_network": "segment-tkg",
-              "private_key_path": "/home/ubuntu/.ssh/cloudKey",
-              "public_key_path": "/home/ubuntu/.ssh/cloudKey.pub",
               "worker_disk": "20",
               "worker_memory": "4096",
               "worker_cpu": "2",
@@ -440,14 +380,11 @@ data:
             {
               "name": "tkg-cluster-workload-2",
               "cni": "calico",
-              "ssh_username": "capv",
               "antrea_node_port_local": "true",
               "cluster_cidr": "100.96.0.0/11",
               "avi_control_plane_ha_provider": "true",
               "service_cidr": "100.64.0.0/13",
               "vsphere_network": "segment-tkg",
-              "private_key_path": "/home/ubuntu/.ssh/cloudKey",
-              "public_key_path": "/home/ubuntu/.ssh/cloudKey.pub",
               "worker_disk": "20",
               "worker_memory": "4096",
               "worker_cpu": "2",

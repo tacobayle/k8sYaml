@@ -164,6 +164,7 @@ data:
         "disk": 128,
         "version": "22.1.4",
         "config": {
+          "domain": "alb123.com",
           "cloud": {
             "service_engine_groups": [
               {

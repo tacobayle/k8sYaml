@@ -213,6 +213,7 @@ data:
         "disk": 128,
         "version": "22.1.4",
         "config": {
+          "domain": "alb.com",
           "cloud": {
             "type": "CLOUD_NSXT",
             "obj_name_prefix": "AVICTRL",
