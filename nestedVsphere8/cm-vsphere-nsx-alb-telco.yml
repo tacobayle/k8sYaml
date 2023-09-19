@@ -361,7 +361,7 @@ data:
           },
           "workloads": [
             {
-              "name": "tkg-cluster-workload-1",
+              "name": "tkg-1",
               "cni": "antrea",
               "antrea_node_port_local": "true",
               "cluster_cidr": "100.96.0.0/11",
@@ -378,7 +378,7 @@ data:
               "control_plane_count": "1"
             },
             {
-              "name": "tkg-cluster-workload-2",
+              "name": "tkg-2",
               "cni": "calico",
               "antrea_node_port_local": "true",
               "cluster_cidr": "100.96.0.0/11",
