@@ -331,7 +331,7 @@ data:
           },
           "ako": {
             "helm_url": "oci://projects.registry.vmware.com/ako/helm-charts/ako",
-            "ako_version": "1.10.2"
+            "ako_version": "1.10.3"
           }
         }
       },
