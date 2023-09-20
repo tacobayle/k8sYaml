@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sctp
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: sctp
+  template:
+    metadata:
+      name: sctp
+      labels:
+        app: sctp
+    spec:
+      containers:
+        - name: sctp
+          image: tacobayle/sctp_server
+          ports:
+            - containerPort: 3868
+              protocol: SCTP
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sctp
+#  annotations:
+#    aviinfrasetting.ako.vmware.com/name: infra-1
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3861
+      targetPort: 3868
+      protocol: SCTP
+  selector:
+    app: sctp
