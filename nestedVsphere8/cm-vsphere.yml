@@ -46,7 +46,7 @@ data:
       },
       "vsphere_nested": {
         "vcsa_name": "vcsa-01",
-        "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.1-22088981.iso",
+        "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.2-22385739.iso",
         "datacenter": "dc1",
         "cluster": "cluster1",    
         "sso": {
@@ -54,7 +54,7 @@ data:
         },
         "timezone": "Europe/Paris",
         "esxi": {
-          "iso_url": "http://10.41.135.46:8000/VMware-VMvisor-Installer-8.0U1a-21813344.x86_64.iso",
+          "iso_url": "http://10.41.135.46:8000/VMware-VMvisor-Installer-8.0U2-22380479.x86_64.iso",
           "basename": "esxi-0",
           "cpu": 24,
           "memory": 131072,

@@ -342,7 +342,7 @@ data:
         "version": "v2.3.0",
         "clusters": {
           "management": {
-            "name": "tkg-cluster-mgmt",
+            "name": "tkg-mgmt",
             "avi_control_plane_network": "segment-vip-mgmt",
             "avi_data_network": "segment-vip-mgmt",
             "avi_mgmt_cluster_control_plane_vip_network_name": "segment-vip-mgmt",
