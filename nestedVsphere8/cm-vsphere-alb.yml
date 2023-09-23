@@ -40,7 +40,6 @@ data:
             "se": {
               "name": "vxw-dvs-34-virtualwire-121-sid-1080120-sof2-01-vc08-avi-dev117",
               "cidr": "10.0.117.0/24",
-              "netmask": "255.255.255.0",
               "avi_ipam_pool": "10.0.117.100-10.0.117.129",
               "external_gw_ip": "10.0.117.1"
             },    
@@ -75,21 +74,18 @@ data:
                   "ako_version": "1.10.1"
                 }    
               ],
-              "netmask": "255.255.255.0",
               "avi_ipam_pool": "10.0.118.100-10.0.118.129",
               "external_gw_ip": "10.0.118.1"
             },
             "vip": {
               "name": "vxw-dvs-34-virtualwire-123-sid-1080122-sof2-01-vc08-avi-dev119",
               "cidr": "10.0.119.0/24",
-              "netmask": "255.255.255.0",
               "avi_ipam_pool": "10.0.119.100-10.0.119.129",
               "external_gw_ip": "10.0.119.1"
             },
             "tanzu": {
               "name": "vxw-dvs-34-virtualwire-124-sid-1080123-sof2-01-vc08-avi-dev120",
               "cidr": "10.0.120.0/24",
-              "netmask": "255.255.255.0",
               "avi_ipam_pool": "10.0.120.100-10.0.120.129",
               "external_gw_ip": "10.0.120.1"
             }          
@@ -105,7 +101,7 @@ data:
       },
       "vsphere_nested": {
         "vcsa_name": "vcsa-01",
-        "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.1-22088981.iso",
+        "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.2-22385739.iso",
         "datacenter": "dc1",
         "cluster": "cluster1",    
         "sso": {
@@ -113,7 +109,7 @@ data:
         },
         "timezone": "Europe/Paris",
         "esxi": {
-          "iso_url": "http://10.41.135.46:8000/VMware-VMvisor-Installer-8.0U1a-21813344.x86_64.iso",
+          "iso_url": "http://10.41.135.46:8000/VMware-VMvisor-Installer-8.0U2-22380479.x86_64.iso",
           "basename": "esxi-0",
           "cpu": 24,
           "memory": 131072,
@@ -135,11 +131,11 @@ data:
         }
       },
       "avi": {
-        "ova_url": "http://10.41.135.46:8000/controller-22.1.4-9196.ova",
+        "ova_url": "http://10.41.135.46:8000/controller-30.1.1-9415.ova",
         "cpu": 8,
         "memory": 24768,
         "disk": 128,
-        "version": "22.1.4",
+        "version": "30.1.1",
         "config": {
           "domain": "alb123.com",
           "cloud": {
