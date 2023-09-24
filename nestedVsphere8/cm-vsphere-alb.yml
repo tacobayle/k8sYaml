@@ -17,7 +17,6 @@ data:
           "vsphere": {
             "management": {
               "name": "vxw-dvs-34-virtualwire-3-sid-1080002-sof2-01-vc08-avi-mgmt",
-              "netmask": "255.255.252.0",
               "cidr": "10.41.132.0/22",
               "gateway": "10.41.132.1",
               "esxi_ips": ["10.41.134.211", "10.41.134.212", "10.41.134.213"],
