@@ -47,21 +47,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-front1
+  name: web-front2
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: web-front1
+      app: web-front2
   template:
     metadata:
-      name: web-front1
+      name: web-front2
       labels:
-        app: web-front1
+        app: web-front2
     spec:
       containers:
-        - name: web-front1
-          image: tacobayle/busybox-v1
+        - name: web-front2
+          image: tacobayle/busybox-v2
           command: [ "sh", "-c"]
           args:
             - while true; do
