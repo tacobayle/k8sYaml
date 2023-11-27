@@ -54,24 +54,21 @@ data:
                   "cluster_ips": ["10.0.118.21", "10.0.118.22", "10.0.118.23"],
                   "k8s_version": "1.26.6-00",
                   "cni": "calico",
-                  "cni_version": "v3.26.1",
-                  "ako_version": "1.10.1"
+                  "cni_version": "v3.26.1"
                 },
                 {
                   "cluster_name": "cluster2",
                   "cluster_ips": ["10.0.118.31", "10.0.118.32", "10.0.118.33"],
                   "k8s_version": "1.26.6-00",
                   "cni": "antrea",
-                  "cni_version": "v1.12.1",
-                  "ako_version": "1.10.1"
+                  "cni_version": "v1.12.1"
                 },
                 {
                   "cluster_name": "cluster3",
                   "cluster_ips": ["10.0.118.41", "10.0.118.42", "10.0.118.43"],
                   "k8s_version": "1.26.6-00",
                   "cni": "cilium",
-                  "cni_version": "v0.15.3",
-                  "ako_version": "1.10.1"
+                  "cni_version": "v0.15.3"
                 }    
               ],
               "avi_ipam_pool": "10.0.118.100-10.0.118.129",
@@ -101,7 +98,7 @@ data:
       },
       "vsphere_nested": {
         "vcsa_name": "vcsa-01",
-        "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.2-22385739.iso",
+        "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.2-22617221.iso",
         "datacenter": "dc1",
         "cluster": "cluster1",    
         "sso": {

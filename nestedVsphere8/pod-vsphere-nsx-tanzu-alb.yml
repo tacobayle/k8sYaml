@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-vsphere-nsx-alb
+  name: pod-vsphere-nsx-tanzu-alb
 spec:
   containers:
-    - name: container-vsphere-nsx-alb
+    - name: container-vsphere-nsx-tanzu-alb
       image: tacobayle/ubuntu-automation1:latest
       command: [ "/bin/sh", "-c", "/bin/bash /build/apply.sh" ]
       env:
