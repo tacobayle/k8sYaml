@@ -158,13 +158,6 @@ data:
               "app_ips": ["100.100.21.11", "100.100.21.12"]
             },
             {
-              "display_name": "my-segment-server-2",
-              "tier1": "my-tier1-A",
-              "cidr": "100.100.22.0/24",
-              "dhcp_ranges": ["100.100.22.50-100.100.22.99"],
-              "app_ips": ["100.100.22.11"]
-            },
-            {
               "display_name": "my-segment-vip-1",
               "tier1": "my-tier1-A",
               "cidr": "100.100.31.0/24",
@@ -199,7 +192,14 @@ data:
                   "cni_version": "v0.15.3"
                 }    
               ]    
-            }
+            },
+            {
+              "display_name": "my-segment-server-2",
+              "tier1": "my-tier1-B",
+              "cidr": "100.100.22.0/24",
+              "dhcp_ranges": ["100.100.22.50-100.100.22.99"],
+              "app_ips": ["100.100.22.11"]
+            }   
           ]
         }    
       },

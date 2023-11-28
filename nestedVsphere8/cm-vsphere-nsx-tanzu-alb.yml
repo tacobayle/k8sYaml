@@ -155,7 +155,7 @@ data:
               "tier1": "my-tier1-A",
               "cidr": "100.100.12.0/24",
               "tanzu_supervisor_starting_ip": "100.100.12.130",
-              "tanzu_supervisor_count": 5    
+              "tanzu_supervisor_count": 5,
               "dhcp_ranges": ["100.100.12.50-100.100.12.99"]
             },
             {
@@ -270,8 +270,10 @@ data:
       },
       "tanzu": {
         "supervisor_cluster": {
+          "auto_install": true,
           "size": "TINY",
           "management_tanzu_segment": "my-segment-mgmt-tanzu-supervisor",
+          "namespace_edge_cluster": "my-edge-cluster-01",
           "namespace_tier0": "my-tier0",
           "namespace_cidr": "100.100.64.0/23",
           "prefix_per_namespace": "27",
