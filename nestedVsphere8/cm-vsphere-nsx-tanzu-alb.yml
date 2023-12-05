@@ -193,6 +193,7 @@ data:
         "memory": 24768,
         "disk": 128,
         "version": "22.1.5",
+        "ako_version": "1.11.1",
         "config": {
           "domain": "nsx-tanzu-alb.com",
           "cloud": {
@@ -281,49 +282,55 @@ data:
         },
         "namespaces": [
           {
-            "name": "tenant1"
+            "name": "tenant-1"
           },
           {
-            "name": "tenant2",
+            "name": "tenant-2",
             "namespace_cidr": "100.100.66.0/23",
             "namespace_tier0": "my-tier0",
             "prefix_per_namespace": "26",
             "ingress_cidr": "100.100.134.0/24"
           },
           {
-            "name": "tenant3"
+            "name": "tenant-3"
           }    
         ],
         "tkc_clusters": [
           {
-            "name": "t1-cluster-1",
-            "namespace_ref": "tenant1",
+            "name": "tenant-1",
+            "namespace_ref": "tenant-1",
             "k8s_version": "v1.24.9",
             "control_plane_count": 1,
             "vm_class": "best-effort-small",
             "workers_count": 1,
             "services_cidrs": ["10.97.0.0/24"],
-            "pods_cidrs": ["10.245.0.0/21"]
+            "pods_cidrs": ["10.245.0.0/21"],
+            "alb_tenant_name": "tenant-1",
+            "alb_tenant_type": "provider-mode"    
           },
           {
-            "name": "t2-cluster-1",
-            "namespace_ref": "tenant2",
+            "name": "tenant-2",
+            "namespace_ref": "tenant-2",
             "k8s_version": "v1.24.9",
             "control_plane_count": 1,
             "vm_class": "best-effort-small",
             "workers_count": 1,
             "services_cidrs": ["10.97.0.0/24"],
-            "pods_cidrs": ["10.245.0.0/21"]
+            "pods_cidrs": ["10.245.0.0/21"],
+            "alb_tenant_name": "tenant-2",
+            "alb_tenant_type": "tenant-mode"
           },
           {
-            "name": "t3-cluster-1",
-            "namespace_ref": "tenant3",
+            "name": "tenant-3",
+            "namespace_ref": "tenant-3",
             "k8s_version": "v1.24.9",
             "control_plane_count": 1,
             "vm_class": "best-effort-small",
             "workers_count": 1,
             "services_cidrs": ["10.97.0.0/24"],
-            "pods_cidrs": ["10.245.0.0/21"]
+            "pods_cidrs": ["10.245.0.0/21"],
+            "alb_tenant_name": "tenant-3",
+            "alb_tenant_type": "provider-mode"    
           }    
         ]    
       }
