@@ -221,6 +221,7 @@ data:
         "memory": 24768,
         "disk": 128,
         "version": "22.1.4",
+        "ako_version": "1.11.1",
         "config": {
           "domain": "alb-telco.com",
           "cloud": {
@@ -328,10 +329,6 @@ data:
                 }
               ]
             }    
-          },
-          "ako": {
-            "helm_url": "oci://projects.registry.vmware.com/ako/helm-charts/ako",
-            "ako_version": "1.10.3"
           }
         }
       },

@@ -133,25 +133,42 @@ data:
       },
       "tanzu": {
         "supervisor_cluster": {
-          "size": "SMALL",
+          "size": "TINY",
           "service_cidr": "10.96.0.0/23"
         },
         "namespaces": [
           {
-            "name": "playground"
-          }
+            "name": "tenant-1"
+          },
+          {
+            "name": "tenant-2"
+          }    
         ],
         "tkc_clusters": [
           {
-            "name": "cluster-1",
-            "namespace_ref": "playground",
+            "name": "tenant-1-cluster-1",
+            "namespace_ref": "tenant-1",
             "k8s_version": "v1.24.9",
             "control_plane_count": 1,
             "vm_class": "best-effort-small",
-            "workers_count": 3,
+            "workers_count": 1,
             "services_cidrs": ["10.97.0.0/24"],
-            "pods_cidrs": ["10.245.0.0/21"]
-          }
+            "pods_cidrs": ["10.245.0.0/21"],
+            "alb_tenant_name": "tenant-1",
+            "alb_tenant_type": "provider-mode"    
+          },
+          {
+            "name": "tenant-2-cluster-1",
+            "namespace_ref": "tenant-2",
+            "k8s_version": "v1.24.9",
+            "control_plane_count": 1,
+            "vm_class": "best-effort-small",
+            "workers_count": 1,
+            "services_cidrs": ["10.97.0.0/24"],
+            "pods_cidrs": ["10.245.0.0/21"],
+            "alb_tenant_name": "tenant-2",
+            "alb_tenant_type": "tenant-mode"    
+          }    
         ]
       },
       "avi": {
@@ -160,6 +177,7 @@ data:
         "memory": 24768,
         "disk": 128,
         "version": "22.1.5",
+        "ako_version": "1.11.1",    
         "config": {
           "domain": "alb123.com",
           "cloud": {
@@ -179,11 +197,7 @@ data:
                 }
               }
             ]
-          },
-          "ako": {
-            "helm_url": "oci://projects.registry.vmware.com/ako/helm-charts/ako",
-            "ako_version": "1.10.3"
-          }    
+          }  
         }
       }
     }

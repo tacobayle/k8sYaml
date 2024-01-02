@@ -11,7 +11,7 @@ data:
         "datacenter": "sof2-01-vc08",
         "cluster": "sof2-01-vc08c01",
         "datastore": "sof2-01-vc08c01-vsan",
-        "folder": "nic-nested-vsphere-alb",
+        "folder": "nic-vsphere-alb",
         "networks_vsphere_dual_attached": true,
         "networks": {
           "vsphere": {
@@ -128,11 +128,12 @@ data:
         }
       },
       "avi": {
-        "ova_url": "http://10.41.135.46:8000/controller-30.1.1-9415.ova",
+        "ova_url": "http://10.41.135.46:8000/controller-22.1.5-9093.ova",
         "cpu": 8,
         "memory": 24768,
         "disk": 128,
         "version": "30.1.1",
+        "ako_version": "1.11.1",
         "config": {
           "domain": "alb123.com",
           "cloud": {
@@ -152,11 +153,7 @@ data:
                 }
               }
             ]
-          },
-          "ako": {
-            "helm_url": "oci://projects.registry.vmware.com/ako/helm-charts/ako",
-            "ako_version": "1.10.3"
-          }    
+          }
         }
       }
     }

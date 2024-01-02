@@ -297,7 +297,7 @@ data:
         ],
         "tkc_clusters": [
           {
-            "name": "cluster1",
+            "name": "tenant-1",
             "namespace_ref": "tenant-1",
             "k8s_version": "v1.24.9",
             "control_plane_count": 1,
@@ -309,7 +309,7 @@ data:
             "alb_tenant_type": "provider-mode"    
           },
           {
-            "name": "cluster2",
+            "name": "tenant-2",
             "namespace_ref": "tenant-2",
             "k8s_version": "v1.24.9",
             "control_plane_count": 1,
@@ -321,7 +321,7 @@ data:
             "alb_tenant_type": "tenant-mode"
           },
           {
-            "name": "cluster3",
+            "name": "tenant-3",
             "namespace_ref": "tenant-3",
             "k8s_version": "v1.24.9",
             "control_plane_count": 1,
