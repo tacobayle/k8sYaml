@@ -132,7 +132,7 @@ data:
         "cpu": 8,
         "memory": 24768,
         "disk": 128,
-        "version": "30.1.1",
+        "version": "22.1.5",
         "ako_version": "1.11.1",
         "config": {
           "domain": "alb123.com",
