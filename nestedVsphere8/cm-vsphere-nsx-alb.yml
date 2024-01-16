@@ -164,6 +164,14 @@ data:
               "dhcp_ranges": ["100.100.31.50-100.100.31.99"]
             },
             {
+              "display_name": "my-segment-migration-vcenter",
+              "tier1": "my-tier1-A",
+              "cidr": "10.0.118.0/24",
+              "dhcp_ranges": ["10.0.118.50-10.0.118.99"],
+              "app_ips": ["10.0.118.11", "10.0.118.12", "10.0.118.13"],
+              "avi_config": false
+            },
+            {
               "display_name": "my-segment-vip-2",
               "tier1": "my-tier1-B",
               "cidr": "100.100.32.0/24",
