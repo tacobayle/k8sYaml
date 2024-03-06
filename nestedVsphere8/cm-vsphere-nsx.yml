@@ -19,60 +19,56 @@ data:
               "name": "vxw-dvs-34-virtualwire-3-sid-1080002-sof2-01-vc08-avi-mgmt",
               "cidr": "10.41.132.0/22",
               "gateway": "10.41.132.1",
-              "esxi_ips": ["10.41.134.221", "10.41.134.222", "10.41.134.223"],
+              "esxi_ips": ["10.41.134.171", "10.41.134.172", "10.41.134.173"],
               "esxi_ips_temp": ["10.41.134.120", "10.41.134.121", "10.41.134.122"],
-              "external_gw_ip": "10.41.134.220",
-              "vcsa_nested_ip": "10.41.134.224",
-              "nsx_nested_ip": "10.41.134.225",
-              "nsx_edge_nested_ips": ["10.41.134.226", "10.41.134.227"]
+              "external_gw_ip": "10.41.134.170",
+              "vcsa_nested_ip": "10.41.134.174",
+              "nsx_nested_ip": "10.41.134.175",
+              "nsx_edge_nested_ips": ["10.41.134.176", "10.41.134.177"]
             },
             "vmotion": {
               "name": "vxw-dvs-34-virtualwire-120-sid-1080119-sof2-01-vc08-avi-dev116",
-              "esxi_ips": ["100.64.132.141", "100.64.132.142", "100.64.132.143"],
+              "esxi_ips": ["100.64.132.41", "100.64.132.42", "100.64.132.43"],
               "cidr": "100.64.132.0/24"
             },
             "vsan": {
               "name": "vxw-dvs-34-virtualwire-119-sid-1080118-sof2-01-vc08-avi-dev115",
-              "esxi_ips": ["100.64.133.141", "100.64.133.142", "100.64.133.143"],
+              "esxi_ips": ["100.64.133.41", "100.64.133.42", "100.64.133.43"],
               "cidr": "100.64.133.0/24"
             }
           },
           "nsx": {
             "external": {
               "name": "vxw-dvs-34-virtualwire-124-sid-1080123-sof2-01-vc08-avi-dev120",
-              "tier0_vips": ["172.16.140.110"],
-              "tier0_ips": ["172.16.140.111", "172.16.140.112"],
-              "cidr": "172.16.140.0/24",
-              "external_gw_ip": "172.16.140.100"
+              "tier0_vips": ["172.16.130.110"],
+              "tier0_ips": ["172.16.130.111", "172.16.130.112"],
+              "cidr": "172.16.130.0/24",
+              "external_gw_ip": "172.16.130.100"
             },
             "overlay": {
               "name": "vxw-dvs-34-virtualwire-125-sid-1080124-sof2-01-vc08-avi-dev121",
-              "cidr": "10.8.140.32/27",
-              "external_gw_ip": "10.8.140.33",
+              "cidr": "10.8.11.32/27",
+              "external_gw_ip": "10.8.11.33",
               "nsx_pool": {
-                "start": "10.8.140.34",
-                "end": "10.8.140.62"
+                "start": "10.8.11.34",
+                "end": "10.8.11.62"
               }
             },
             "overlay_edge": {    
-              "name": "vxw-dvs-34-virtualwire-126-sid-1080125-sof2-01-vc08-avi-dev122",
-              "cidr": "10.8.141.64/27",
-              "external_gw_ip": "10.8.141.65",
+              "cidr": "10.8.11.64/27",
+              "external_gw_ip": "10.8.11.65",
               "nsx_pool": {
-                "start": "10.8.141.66",
-                "end": "10.8.141.94"
+                "start": "10.8.11.66",
+                "end": "10.8.11.94"
               }    
             }
           }
         }
       },
       "external_gw": {
-        "cpu": 2,
-        "memory": 4096,
-        "disk": 20,
-        "bind": {
+       "bind": {
           "forwarders": ["10.23.108.1", "10.23.108.2", "10.16.142.111"],
-          "domain": "alb.com"
+          "domain": "nsx.com"
         },
         "ntp": "time.vmware.com"
       },
@@ -80,7 +76,8 @@ data:
         "vcsa_name": "vcsa-01",
         "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.2-22617221.iso",
         "datacenter": "dc1",
-        "cluster": "cluster1",    
+        "cluster_basename": "cluster-",
+        "cluster_esxi_count": 3,    
         "sso": {
           "domain_name": "domain.local"
         },

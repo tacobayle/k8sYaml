@@ -100,7 +100,8 @@ data:
         "vcsa_name": "vcsa-01",
         "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.2-22617221.iso",
         "datacenter": "dc1",
-        "cluster": "cluster1",    
+        "cluster_basename": "cluster-",
+        "cluster_esxi_count": 3,
         "sso": {
           "domain_name": "domain.local"
         },
