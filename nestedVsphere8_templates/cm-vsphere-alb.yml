@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cm-vsphere-tanzu-alb-wo-nsx
+  name: cm-vsphere-alb
   namespace: default
 data:
   variables.json: |
@@ -11,7 +11,7 @@ data:
         "datacenter": "sof2-01-vc08",
         "cluster": "sof2-01-vc08c01",
         "datastore": "sof2-01-vc08c01-vsan",
-        "folder": "nic-vsphere-tanzu-alb-wo-nsx",
+        "folder": "nic-vsphere-alb",
         "networks_vsphere_dual_attached": true,
         "networks": {
           "vsphere": {
@@ -33,8 +33,8 @@ data:
             "vsan": {
               "name": "vxw-dvs-34-virtualwire-120-sid-1080119-sof2-01-vc08-avi-dev116",
               "esxi_ips": ["100.64.133.31", "100.64.133.32", "100.64.133.33"],
-              "cidr": "100.64.133.0/24"
-            }    
+              "cidr": "100.64.133.0/24"   
+            }
           },
           "alb": {
             "se": {
@@ -52,27 +52,25 @@ data:
                 {
                   "cluster_name": "cluster1",
                   "cluster_ips": ["10.0.118.21", "10.0.118.22", "10.0.118.23"],
-                  "k8s_version": "1.26.6-00",
+                  "k8s_version": "v1.28.1-1.1",
                   "cni": "calico",
                   "cni_version": "v3.26.1"
                 },
                 {
                   "cluster_name": "cluster2",
                   "cluster_ips": ["10.0.118.31", "10.0.118.32", "10.0.118.33"],
-                  "k8s_version": "1.26.6-00",
+                  "k8s_version": "v1.28.1-1.1",
                   "cni": "antrea",
                   "cni_version": "v1.12.1"
                 },
                 {
                   "cluster_name": "cluster3",
                   "cluster_ips": ["10.0.118.41", "10.0.118.42", "10.0.118.43"],
-                  "k8s_version": "1.26.6-00",
+                  "k8s_version": "v1.28.1-1.1",
                   "cni": "cilium",
                   "cni_version": "v0.15.3"
                 }    
               ],
-              "tanzu_workers_starting_ip": "10.0.118.50",
-              "tanzu_workers_count": 49,
               "avi_ipam_pool": "10.0.118.100-10.0.118.129",
               "external_gw_ip": "10.0.118.1"
             },
@@ -86,9 +84,7 @@ data:
               "name": "vxw-dvs-34-virtualwire-124-sid-1080123-sof2-01-vc08-avi-dev120",
               "cidr": "10.0.120.0/24",
               "avi_ipam_pool": "10.0.120.100-10.0.120.129",
-              "external_gw_ip": "10.0.120.1",
-              "tanzu_supervisor_starting_ip": "10.0.120.130",
-              "tanzu_supervisor_count": 5
+              "external_gw_ip": "10.0.120.1"
             }          
           }  
         }
@@ -104,7 +100,8 @@ data:
         "vcsa_name": "vcsa-01",
         "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.2-22617221.iso",
         "datacenter": "dc1",
-        "cluster": "cluster1",    
+        "cluster_basename": "cluster-",
+        "cluster_esxi_count": 3,
         "sso": {
           "domain_name": "domain.local"
         },
@@ -131,53 +128,13 @@ data:
           ]
         }
       },
-      "tanzu": {
-        "supervisor_cluster": {
-          "size": "TINY",
-          "service_cidr": "10.96.0.0/23"
-        },
-        "namespaces": [
-          {
-            "name": "tenant-1"
-          },
-          {
-            "name": "tenant-2"
-          }    
-        ],
-        "tkc_clusters": [
-          {
-            "name": "tenant-1-cluster-1",
-            "namespace_ref": "tenant-1",
-            "k8s_version": "v1.24.9",
-            "control_plane_count": 1,
-            "vm_class": "best-effort-small",
-            "workers_count": 1,
-            "services_cidrs": ["10.97.0.0/24"],
-            "pods_cidrs": ["10.245.0.0/21"],
-            "alb_tenant_name": "tenant-1",
-            "alb_tenant_type": "provider-mode"    
-          },
-          {
-            "name": "tenant-2-cluster-1",
-            "namespace_ref": "tenant-2",
-            "k8s_version": "v1.24.9",
-            "control_plane_count": 1,
-            "vm_class": "best-effort-small",
-            "workers_count": 1,
-            "services_cidrs": ["10.97.0.0/24"],
-            "pods_cidrs": ["10.245.0.0/21"],
-            "alb_tenant_name": "tenant-2",
-            "alb_tenant_type": "tenant-mode"    
-          }    
-        ]
-      },
       "avi": {
         "ova_url": "http://10.41.135.46:8000/controller-22.1.5-9093.ova",
         "cpu": 8,
         "memory": 24768,
         "disk": 128,
         "version": "22.1.5",
-        "ako_version": "1.11.1",    
+        "ako_version": "1.11.1",
         "config": {
           "domain": "alb123.com",
           "cloud": {
@@ -197,7 +154,7 @@ data:
                 }
               }
             ]
-          }  
+          }
         }
       }
     }
