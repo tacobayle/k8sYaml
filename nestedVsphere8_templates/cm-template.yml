@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-${d}
+  namespace: default
+data:
+  variables.json: |

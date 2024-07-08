@@ -1,0 +1,8 @@
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfstate.lock.info
+.terraform.lock.hcl
+.idea/
+nestedVsphere8
+nested-vcf

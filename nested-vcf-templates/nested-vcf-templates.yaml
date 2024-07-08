@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vcf-vsphere-external
+type: kubernetes.io/basic-auth
+stringData:
+  username: xxxxxxxx
+  password: xxxxxxxx
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vcf-slack
+type: kubernetes.io/basic-auth
+stringData:
+  password: "xxxxxxxx"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-nested-vcf
+  namespace: default
+data:
+  variables.json: |
+    {
+      "vsphere_underlay": {
+        "vcsa": "wdc-06-vc12.oc.vmware.com",    
+        "datacenter": "wdc-06-vc12",
+        "cluster": "wdc-06-vc12c01",
+        "datastore": "wdc-06-vc12c01-vsan",
+        "folder": "nic-nested-vcf"
+      }
+    }
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-nested-vcf
+spec:
+  containers:
+    - name: container-nested-vcf
+      image: tacobayle/alpine-vcf:latest
+      command: [ "/bin/sh", "-c", "/bin/bash /build/apply.sh" ]
+      env:
+        - name: vsphere_external_username
+          valueFrom:
+            secretKeyRef:
+              name: vcf-vsphere-external
+              key: username
+        - name: vsphere_external_password
+          valueFrom:
+            secretKeyRef:
+              name: vcf-vsphere-external
+              key: password
+        - name: slack_webhook_url
+          valueFrom:
+            secretKeyRef:
+              name: vcf-slack
+              key: password
+      volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+  volumes:
+    - name: config-volume
+      configMap:
+        name: cm-nested-vcf
+  restartPolicy: Never

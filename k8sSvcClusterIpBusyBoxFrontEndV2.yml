@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-front-2
+spec:
+  selector:
+    app: web-front2
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

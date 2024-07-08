@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-vsphere-nsx-tanzu-alb
+spec:
+  containers:
+    - name: container-vsphere-nsx-tanzu-alb
+      image: tacobayle/ubuntu-automation1:latest
+      command: [ "/bin/sh", "-c", "/bin/bash /build/apply.sh" ]
+      env:
+        - name: TF_VAR_vsphere_underlay_username
+          valueFrom:
+            secretKeyRef:
+              name: vsphere-underlay
+              key: username
+        - name: TF_VAR_vsphere_underlay_password
+          valueFrom:
+            secretKeyRef:
+              name: vsphere-underlay
+              key: password
+        - name: TF_VAR_ubuntu_password
+          valueFrom:
+            secretKeyRef:
+              name: ubuntu-password
+              key: password
+        - name: TF_VAR_bind_password
+          valueFrom:
+            secretKeyRef:
+              name: bind-password
+              key: password
+        - name: TF_VAR_nested_esxi_root_password
+          valueFrom:
+            secretKeyRef:
+              name: nested-esxi
+              key: password
+        - name: TF_VAR_vsphere_nested_password
+          valueFrom:
+            secretKeyRef:
+              name: nested-vsphere
+              key: password
+        - name: TF_VAR_nsx_password
+          valueFrom:
+            secretKeyRef:
+              name: nsx-password
+              key: password
+        - name: TF_VAR_nsx_license
+          valueFrom:
+            secretKeyRef:
+              name: nsx-license
+              key: password
+        - name: TF_VAR_avi_password
+          valueFrom:
+            secretKeyRef:
+              name: avi-password
+              key: password
+        - name: TF_VAR_avi_old_password
+          valueFrom:
+            secretKeyRef:
+              name: avi-old-password
+              key: password
+        - name: TF_VAR_docker_registry_username
+          valueFrom:
+            secretKeyRef:
+              name: docker
+              key: username
+        - name: TF_VAR_docker_registry_password
+          valueFrom:
+            secretKeyRef:
+              name: docker
+              key: password
+        - name: TF_VAR_docker_registry_email
+          valueFrom:
+            secretKeyRef:
+              name: docker
+              key: email
+      volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+  volumes:
+    - name: config-volume
+      configMap:
+        name: cm-vsphere-nsx-tanzu-alb
+  restartPolicy: Never

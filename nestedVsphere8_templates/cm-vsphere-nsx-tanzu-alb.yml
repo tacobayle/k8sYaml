@@ -1,0 +1,338 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-vsphere-nsx-tanzu-alb
+  namespace: default
+data:
+  variables.json: |
+    {
+      "vsphere_underlay": {
+        "vcsa": "sof2-01-vc08.oc.vmware.com",    
+        "datacenter": "sof2-01-vc08",
+        "cluster": "sof2-01-vc08c01",
+        "datastore": "sof2-01-vc08c01-vsan",
+        "folder": "nic-vpshere-nsx-tanzu-alb",
+        "networks_vsphere_dual_attached": true,    
+        "networks": {
+          "vsphere": {
+            "management": {
+              "name": "vxw-dvs-34-virtualwire-3-sid-1080002-sof2-01-vc08-avi-mgmt",
+              "cidr": "10.41.132.0/22",
+              "gateway": "10.41.132.1",
+              "esxi_ips": ["10.41.134.241", "10.41.134.242", "10.41.134.243"],
+              "esxi_ips_temp": ["10.41.134.120", "10.41.134.121", "10.41.134.122"],
+              "external_gw_ip": "10.41.134.240",
+              "vcsa_nested_ip": "10.41.134.244",
+              "nsx_nested_ip": "10.41.134.245",
+              "nsx_edge_nested_ips": ["10.41.134.246", "10.41.134.247"],    
+              "avi_nested_ip": "10.41.134.248"
+            },
+            "vmotion": {
+              "name": "vxw-dvs-34-virtualwire-120-sid-1080119-sof2-01-vc08-avi-dev116",
+              "esxi_ips": ["100.64.132.51", "100.64.132.52", "100.64.132.53"],
+              "cidr": "100.64.132.0/24"
+            },
+            "vsan": {
+              "name": "vxw-dvs-34-virtualwire-119-sid-1080118-sof2-01-vc08-avi-dev115",
+              "esxi_ips": ["100.64.133.51", "100.64.133.52", "100.64.133.53"],
+              "cidr": "100.64.133.0/24"
+            }
+          },
+          "nsx": {
+            "external": {
+              "name": "vxw-dvs-34-virtualwire-124-sid-1080123-sof2-01-vc08-avi-dev120",
+              "tier0_vips": ["172.16.130.120"],
+              "tier0_ips": ["172.16.130.121", "172.16.130.122"],
+              "cidr": "172.16.130.0/24",
+              "external_gw_ip": "172.16.130.130"
+            },
+            "overlay": {
+              "name": "vxw-dvs-34-virtualwire-125-sid-1080124-sof2-01-vc08-avi-dev121",
+              "cidr": "10.8.12.32/27",
+              "external_gw_ip": "10.8.12.33",
+              "nsx_pool": {
+                "start": "10.8.12.34",
+                "end": "10.8.12.62"
+              }
+            },
+            "overlay_edge": {    
+              "name": "vxw-dvs-34-virtualwire-126-sid-1080125-sof2-01-vc08-avi-dev122",
+              "cidr": "10.8.12.64/27",
+              "external_gw_ip": "10.8.12.65",
+              "nsx_pool": {
+                "start": "10.8.12.66",
+                "end": "10.8.12.94"
+              }    
+            }
+          }
+        }
+      },
+      "external_gw": {
+        "bind": {
+          "forwarders": ["10.23.108.1", "10.23.108.2", "10.16.142.111"],
+          "domain": "nsx-tanzu-alb.com"
+        },
+        "ntp": "time.vmware.com"
+      },
+      "vsphere_nested": {
+        "vcsa_name": "vcsa-01",
+        "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.2-22617221.iso",
+        "datacenter": "dc1",
+        "cluster_basename": "cluster-",
+        "cluster_esxi_count": 3,
+        "sso": {
+          "domain_name": "domain.local"
+        },
+        "timezone": "Europe/Paris",
+        "esxi": {
+          "iso_url": "http://10.41.135.46:8000/VMware-VMvisor-Installer-8.0U2-22380479.x86_64.iso",
+          "basename": "esxi-0",
+          "cpu": 24,
+          "memory": 131072,
+          "disks_description": "",    
+          "disks": [
+            {
+              "size": 32,
+              "thin_provisioned": true
+            },
+            {
+              "size": 64,
+              "thin_provisioned": true
+            },
+            {
+              "size": 448,
+              "thin_provisioned": true
+            }
+          ]    
+        }
+      },
+      "nsx": {
+        "ova_url": "http://10.41.135.46:8000/nsx-unified-appliance-4.1.2.0.0.22589046.ova",
+        "nsx_size_description": "medium size will be deployed: 6 cpus, 24576 of memory, 200Go of disk",
+        "config": {
+          "edge_node": {
+            "size": "medium",
+            "basename": "edge-0",
+            "description": "number of edge deployed based on .vsphere_underlay.networks.vsphere.management.nsx_edge_nested_ips"    
+          },
+          "edge_clusters":
+          [
+            {
+              "display_name": "my-edge-cluster-01",
+              "members_name": [
+                "edge-01",
+                "edge-02"
+              ]
+            }
+          ],
+          "tier0s":
+          [
+            {
+              "display_name": "my-tier0",
+              "edge_cluster_name": "my-edge-cluster-01"
+            }
+          ],
+          "tier1s":
+          [
+            {
+              "tier0": "my-tier0",
+              "display_name": "my-tier1-A"
+            },
+            {
+              "tier0": "my-tier0",
+              "display_name": "my-tier1-B"
+            }
+          ],
+          "segments_overlay":
+          [
+            {
+              "display_name": "my-segment-mgmt-avi",
+              "tier1": "my-tier1-A",
+              "cidr": "100.100.11.0/24",
+              "dhcp_ranges": ["100.100.11.50-100.100.11.99"]
+            },
+            {
+              "display_name": "my-segment-mgmt-tanzu-supervisor",
+              "tier1": "my-tier1-A",
+              "cidr": "100.100.12.0/24",
+              "tanzu_supervisor_starting_ip": "100.100.12.130",
+              "tanzu_supervisor_count": 5,
+              "dhcp_ranges": ["100.100.12.50-100.100.12.99"]
+            },
+            {
+              "display_name": "my-segment-server-1",
+              "tier1": "my-tier1-A",
+              "cidr": "100.100.21.0/24",
+              "dhcp_ranges": ["100.100.21.50-100.100.21.99"],
+              "app_ips": ["100.100.21.11", "100.100.21.12"]
+            },
+            {
+              "display_name": "my-segment-server-2",
+              "tier1": "my-tier1-A",
+              "cidr": "100.100.22.0/24",
+              "dhcp_ranges": ["100.100.22.50-100.100.22.99"],
+              "app_ips": ["100.100.22.11"]
+            },
+            {
+              "display_name": "my-segment-vip-1",
+              "tier1": "my-tier1-A",
+              "cidr": "100.100.31.0/24",
+              "dhcp_ranges": ["100.100.31.50-100.100.31.99"]
+            },
+            {
+              "display_name": "my-segment-vip-2",
+              "tier1": "my-tier1-B",
+              "cidr": "100.100.32.0/24",
+              "dhcp_ranges": ["100.100.32.50-100.100.32.99"]    
+            }
+          ]
+        }    
+      },
+      "avi": {
+        "ova_url": "http://10.41.135.46:8000/controller-22.1.6-9191.ova",
+        "cpu": 8,
+        "memory": 24768,
+        "disk": 128,
+        "version": "22.1.6",
+        "ako_version": "1.11.1",
+        "config": {
+          "domain": "nsx-tanzu-alb.com",
+          "cloud": {
+            "type": "CLOUD_NSXT",
+            "obj_name_prefix": "AVICTRL",
+            "network_management": {
+              "name": "my-segment-mgmt-avi",
+              "avi_ipam_pool_se": "100.100.11.210-100.100.11.230"
+            },
+            "networks_data": [
+              {
+                "name": "my-segment-vip-1",
+                "avi_ipam_pool_se": "100.100.31.210-100.100.31.230",
+                "avi_ipam_vip": {
+                  "cidr": "100.100.131.0/24",
+                  "pool": "100.100.131.210-100.100.131.230"
+                }
+              },
+              {
+                "name": "my-segment-vip-2",
+                "avi_ipam_pool_se": "100.100.32.210-100.100.32.230",
+                "avi_ipam_vip": {
+                  "cidr": "100.100.132.0/24",
+                  "pool": "100.100.132.210-100.100.132.230"
+                }
+              }
+            ],
+            "service_engine_groups": [
+              {
+                "name": "Default-Group",
+                "ha_mode": "HA_MODE_SHARED_PAIR",
+                "min_scaleout_per_vs": 2,
+                "buffer_se": 0,
+                "extra_shared_config_memory": 0,
+                "vcpus_per_se": 2,
+                "memory_per_se": 2048,
+                "disk_per_se": 25,
+                "realtime_se_metrics": {
+                  "enabled": true,
+                  "duration": 0
+                }
+              },
+              {
+                "name": "seGroupGslb",
+                "ha_mode": "HA_MODE_SHARED",
+                "min_scaleout_per_vs": 1,
+                "buffer_se": 0,
+                "extra_shared_config_memory": 0,
+                "vcpus_per_se": 2,
+                "memory_per_se": 2048,
+                "disk_per_se": 25,
+                "realtime_se_metrics": {
+                  "enabled": true,
+                  "duration": 0
+                }
+              }
+            ],              
+            "virtual_services": {
+              "description": "http VS(s) will be auto configured by the automation script based on pool from nsx.config.segments_overlay[].app_ips",
+              "dns": [
+                {
+                  "name": "app-dns",
+                  "network_ref": "my-segment-vip-2",
+                  "se_group_ref": "seGroupGslb",
+                  "services": [
+                    {
+                      "port": 53
+                    }
+                  ]
+                }
+              ]
+            }    
+          }
+        }
+      },
+      "tanzu": {
+        "supervisor_cluster": {
+          "size": "TINY",
+          "management_tanzu_segment": "my-segment-mgmt-tanzu-supervisor",
+          "namespace_edge_cluster": "my-edge-cluster-01",
+          "namespace_tier0": "my-tier0",
+          "namespace_cidr": "100.100.64.0/23",
+          "prefix_per_namespace": "27",
+          "ingress_cidr": "100.100.133.0/24",
+          "service_cidr": "10.96.0.0/23"
+        },
+        "namespaces": [
+          {
+            "name": "tenant-1"
+          },
+          {
+            "name": "tenant-2",
+            "namespace_cidr": "100.100.66.0/23",
+            "namespace_tier0": "my-tier0",
+            "prefix_per_namespace": "26",
+            "ingress_cidr": "100.100.134.0/24"
+          },
+          {
+            "name": "tenant-3"
+          }    
+        ],
+        "tkc_clusters": [
+          {
+            "name": "cluster1",
+            "namespace_ref": "tenant-1",
+            "k8s_version": "v1.24.9",
+            "control_plane_count": 1,
+            "vm_class": "best-effort-small",
+            "workers_count": 1,
+            "services_cidrs": ["10.97.0.0/24"],
+            "pods_cidrs": ["10.245.0.0/21"],
+            "alb_tenant_name": "tenant-1",
+            "alb_tenant_type": "provider-mode"    
+          },
+          {
+            "name": "cluster2",
+            "namespace_ref": "tenant-2",
+            "k8s_version": "v1.24.9",
+            "control_plane_count": 1,
+            "vm_class": "best-effort-small",
+            "workers_count": 1,
+            "services_cidrs": ["10.97.0.0/24"],
+            "pods_cidrs": ["10.245.0.0/21"],
+            "alb_tenant_name": "tenant-2",
+            "alb_tenant_type": "tenant-mode"
+          },
+          {
+            "name": "cluster3",
+            "namespace_ref": "tenant-3",
+            "k8s_version": "v1.24.9",
+            "control_plane_count": 1,
+            "vm_class": "best-effort-small",
+            "workers_count": 1,
+            "services_cidrs": ["10.97.0.0/24"],
+            "pods_cidrs": ["10.245.0.0/21"],
+            "alb_tenant_name": "tenant-3",
+            "alb_tenant_type": "provider-mode"    
+          }    
+        ]    
+      }
+    }

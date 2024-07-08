@@ -1,0 +1,397 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-vpshere-nsx-alb-telco
+  namespace: default
+data:
+  variables.json: |
+    {
+      "vsphere_underlay": {
+        "vcsa": "sof2-01-vc08.oc.vmware.com",    
+        "datacenter": "sof2-01-vc08",
+        "cluster": "sof2-01-vc08c01",
+        "datastore": "sof2-01-vc08c01-vsan",
+        "folder": "nic-vsphere-nsx-alb-telco",
+        "networks_vsphere_dual_attached": true, 
+        "networks": {
+          "vsphere": {
+            "management": {
+              "name": "vxw-dvs-34-virtualwire-3-sid-1080002-sof2-01-vc08-avi-mgmt",
+              "cidr": "10.41.132.0/22",
+              "gateway": "10.41.132.1",
+              "esxi_ips": ["10.41.134.151", "10.41.134.152", "10.41.134.153"],
+              "esxi_ips_temp": ["10.41.134.120", "10.41.134.121", "10.41.134.122"],
+              "external_gw_ip": "10.41.134.162",
+              "vcsa_nested_ip": "10.41.134.154",
+              "nsx_nested_ip": "10.41.134.155",
+              "nsx_edge_nested_ips": ["10.41.134.156", "10.41.134.157", "10.41.134.158", "10.41.134.159", "10.41.134.160", "10.41.134.161"],    
+              "avi_nested_ip": "10.41.134.163"
+            },
+            "vmotion": {
+              "name": "vxw-dvs-34-virtualwire-120-sid-1080119-sof2-01-vc08-avi-dev116",
+              "esxi_ips": ["100.64.191.41", "100.64.191.42", "100.64.191.43"],
+              "cidr": "100.64.191.0/24"
+            },
+            "vsan": {
+              "name": "vxw-dvs-34-virtualwire-119-sid-1080118-sof2-01-vc08-avi-dev115",
+              "esxi_ips": ["100.64.192.41", "100.64.192.42", "100.64.192.43"],
+              "cidr": "100.64.192.0/24"
+            }
+          },
+          "nsx": {
+            "external": {
+              "name": "vxw-dvs-34-virtualwire-124-sid-1080123-sof2-01-vc08-avi-dev120",
+              "tier0_vips": ["172.16.193.110", "172.16.193.120", "172.16.193.130"],
+              "tier0_ips": ["172.16.193.111", "172.16.193.112", "172.16.193.121", "172.16.193.122", "172.16.193.131", "172.16.193.132"],
+              "cidr": "172.16.193.0/24",
+              "external_gw_ip": "172.16.193.100"
+            },
+            "overlay": {
+              "name": "vxw-dvs-34-virtualwire-125-sid-1080124-sof2-01-vc08-avi-dev121",
+              "cidr": "10.9.11.32/27",
+              "external_gw_ip": "10.9.11.33",
+              "nsx_pool": {
+                "start": "10.9.11.34",
+                "end": "10.9.11.62"
+              }
+            },
+            "overlay_edge": {    
+              "name": "vxw-dvs-34-virtualwire-126-sid-1080125-sof2-01-vc08-avi-dev122",
+              "cidr": "10.9.11.64/27",
+              "external_gw_ip": "10.9.11.65",
+              "nsx_pool": {
+                "start": "10.9.11.66",
+                "end": "10.9.11.94"
+              }    
+            }
+          }
+        }
+      },
+      "external_gw": {
+        "bind": {
+          "forwarders": ["10.23.108.1", "10.23.108.2", "10.16.142.111"],
+          "domain": "alb-telco.com"
+        },
+        "ntp": "time.vmware.com"
+      },
+      "vsphere_nested": {
+        "vcsa_name": "vcsa-01",
+        "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.2-22617221.iso",
+        "datacenter": "dc1",
+        "cluster": "cluster1",    
+        "sso": {
+          "domain_name": "domain.local"
+        },
+        "timezone": "Europe/Paris",
+        "esxi": {
+          "iso_url": "http://10.41.135.46:8000/VMware-VMvisor-Installer-8.0U1a-21813344.x86_64.iso",
+          "basename": "esxi-0",
+          "cpu": 24,
+          "memory": 131072,
+          "disks_description": "",    
+          "disks": [
+            {
+              "size": 32,
+              "thin_provisioned": true
+            },
+            {
+              "size": 64,
+              "thin_provisioned": true
+            },
+            {
+              "size": 448,
+              "thin_provisioned": true
+            }
+          ]    
+        }
+      },
+      "nsx": {
+        "ova_url": "http://10.41.135.46:8000/nsx-unified-appliance-4.1.2.0.0.22589046.ova",
+        "nsx_size_description": "medium size will be deployed: 6 cpus, 24576 of memory, 200Go of disk",
+        "config": {
+          "edge_node": {
+            "size": "medium",
+            "basename": "edge-0",
+            "description": "number of edge deployed based on .vsphere_underlay.networks.vsphere.management.nsx_edge_nested_ips"    
+          },
+          "edge_clusters":
+          [
+            {
+              "display_name": "edge-cluster-01",
+              "members_name": [
+                "edge-01",
+                "edge-02"
+              ]
+            },
+            {
+              "display_name": "edge-cluster-02",
+              "members_name": [
+                "edge-03",
+                "edge-04"
+              ]
+            },
+            {
+              "display_name": "edge-cluster-03",
+              "members_name": [
+                "edge-05",
+                "edge-06"
+              ]
+            }    
+          ],
+          "tier0s":
+          [
+            {
+              "display_name": "tier0-static",
+              "edge_cluster_name": "edge-cluster-01"
+            },
+            {
+              "display_name": "tier0-bgp-vrf-1",
+              "edge_cluster_name": "edge-cluster-02",
+              "bgp": {
+                "description": "remove the bgp key if you want to ignore BGP config at the tier0 level",
+                "local_as_num": 65100,
+                "avi_context_ref": "global",
+                "avi_peer_label": "vrf-1",
+                "ecmp": true
+              }
+            },
+            {
+              "display_name": "tier0-bgp-vrf-2",
+              "edge_cluster_name": "edge-cluster-03",
+              "bgp": {
+                "description": "remove the bgp key if you want to ignore BGP config at the tier0 level",
+                "local_as_num": 65100,
+                "ecmp": true,
+                "avi_context_ref": "global",
+                "avi_peer_label": "vrf-2"
+              }
+            }    
+          ],
+          "tier1s":
+          [
+            {
+              "tier0": "tier0-static",
+              "display_name": "tier1-mgmt"
+            },
+            {
+              "tier0": "tier0-static",
+              "display_name": "tier1-data"
+            },
+            {
+              "tier0": "tier0-bgp-vrf-1",
+              "display_name": "tier1-oam"
+            },
+            {
+              "tier0": "tier0-bgp-vrf-2",
+              "display_name": "tier1-signaling"
+            }    
+          ],
+          "segments_overlay":
+          [
+            {
+              "display_name": "segment-mgmt",
+              "tier1": "tier1-mgmt",
+              "cidr": "200.100.11.0/24",
+              "dhcp_ranges": ["200.100.11.100-200.100.11.199"]
+            },
+            {
+              "display_name": "segment-tkg",
+              "tier1": "tier1-data",
+              "cidr": "200.100.12.0/24",
+              "dhcp_ranges": ["200.100.12.100-200.100.12.199"]
+            },
+            {
+              "display_name": "segment-vip-mgmt",
+              "tier1": "tier1-data",
+              "cidr": "200.100.13.0/24",
+              "dhcp_ranges": ["200.100.13.10-200.100.13.19"]
+            },
+            {
+              "display_name": "segment-vip-data",
+              "tier1": "tier1-data",
+              "cidr": "200.100.14.0/24",
+              "dhcp_ranges": ["200.100.14.10-200.100.14.19"]
+            }
+          ]
+        }    
+      },
+      "avi": {
+        "ova_url": "http://10.41.135.46:8000/controller-22.1.4-9196.ova",
+        "cpu": 8,
+        "memory": 24768,
+        "disk": 128,
+        "version": "22.1.4",
+        "ako_version": "1.11.1",
+        "config": {
+          "domain": "alb-telco.com",
+          "cloud": {
+            "type": "CLOUD_VCENTER",
+            "networks": [
+              {
+                "name": "segment-mgmt",
+                "avi_ipam_pool": "200.100.11.210-200.100.11.230",
+                "management": true,
+                "external" : false
+              },
+              {
+                "name": "segment-tkg",
+                "avi_ipam_pool": "200.100.12.210-200.100.12.230",
+                "management": false,
+                "external" : false
+              },
+              {
+                "name": "segment-vip-mgmt",
+                "avi_ipam_pool": "200.100.13.210-200.100.13.230",
+                "management": false,
+                "external" : false
+              },
+              {
+                "name": "segment-vip-data",
+                "avi_ipam_pool": "200.100.14.210-200.100.14.230",
+                "management": false,
+                "external" : false
+              },
+              {
+                "name": "nsx-external-pg",
+                "avi_ipam_pool": "172.16.193.201-172.16.193.204",
+                "management": false,
+                "external" : true
+              }
+            ],
+            "additional_subnets": [
+              {
+                "name_ref": "nsx-external-pg",
+                "subnets": [
+                  {
+                    "cidr": "1.1.1.0/24",
+                    "range": "1.1.1.1-1.1.1.10",
+                    "type": "V4",
+                    "bgp_label": "vrf-1",
+                    "range_type": "STATIC_IPS_FOR_VIP"
+                  },
+                  {
+                    "cidr": "2.2.2.0/24",
+                    "range": "2.2.2.1-2.2.2.10",
+                    "type": "V4",
+                    "bgp_label": "vrf-2",
+                    "range_type": "STATIC_IPS_FOR_VIP"
+                  }
+                ]
+              }
+            ],
+            "contexts": [
+              {
+                "description": "Warning: this context list supports only 1 item supported",
+                "name": "global",
+                "ibgp": false,
+                "keepalive_interval": 60,
+                "hold_time": 180,
+                "local_as": 65011,
+                "send_community": true,
+                "shutdown": false,
+                "routing_options": [
+                  {
+                    "advertise_learned_routes": true,
+                    "label": "vrf-1",
+                    "max_learn_limit": 50
+                  },
+                  {
+                    "advertise_learned_routes": true,
+                    "label": "vrf-2",
+                    "max_learn_limit": 50
+                  }
+                ]
+              }
+            ],
+            "service_engine_groups": [
+              {
+                "name": "Default-Group",
+                "ha_mode": "HA_MODE_SHARED",
+                "min_scaleout_per_vs": 1,
+                "buffer_se": 0,
+                "vcenter_folder": "avi-seg-default",
+                "extra_shared_config_memory": 0,
+                "vcpus_per_se": 2,
+                "memory_per_se": 2048,
+                "disk_per_se": 25,
+                "realtime_se_metrics": {
+                  "enabled": true,
+                  "duration": 0
+                }
+              }
+            ],
+            "virtual_services": {
+              "dns": [
+                {
+                  "name": "app-dns",
+                  "network_ref": "segment-vip-mgmt",
+                  "se_group_ref": "Default-Group"
+                }
+              ]
+            }    
+          }
+        }
+      },
+      "tkg": {
+        "tanzu_bin_location": "http://10.41.135.46:8000/tanzu-cli-linux-amd64.tar.gz",
+        "k8s_bin_location": "http://10.41.135.46:8000/kubectl-linux-v1.26.5+vmware.2.gz",
+        "ova_location": "http://10.41.135.46:8000/ubuntu-2004-kube-v1.26.5+vmware.2-tkg.1-814430d158ce7889d5a7b60efeda67ca.ova",
+        "version": "v2.3.0",
+        "clusters": {
+          "management": {
+            "name": "tkg-mgmt",
+            "avi_control_plane_network": "segment-vip-mgmt",
+            "avi_data_network": "segment-vip-mgmt",
+            "avi_mgmt_cluster_control_plane_vip_network_name": "segment-vip-mgmt",
+            "avi_mgmt_cluster_vip_network_name": "segment-vip-mgmt",
+            "avi_management_cluster_service_engine_group": "Default-Group",
+            "avi_service_engine_group": "Default-Group",
+            "cluster_cidr": "100.96.0.0/11",
+            "service_cidr": "100.64.0.0/13",
+            "vsphere_network": "segment-mgmt",
+            "control_plane_disk": "20",
+            "control_plane_memory": "4096",
+            "control_plane_cpu": "2",
+            "worker_disk": "20",
+            "worker_memory": "4096",
+            "worker_cpu": "2"
+          },
+          "workloads": [
+            {
+              "name": "tkg-1",
+              "cni": "antrea",
+              "antrea_node_port_local": "true",
+              "cluster_cidr": "100.96.0.0/11",
+              "avi_control_plane_ha_provider": "true",
+              "service_cidr": "100.64.0.0/13",
+              "vsphere_network": "segment-tkg",
+              "worker_disk": "20",
+              "worker_memory": "4096",
+              "worker_cpu": "2",
+              "worker_count": "3",
+              "control_plane_disk": "20",
+              "control_plane_memory": "4096",
+              "control_plane_cpu": "2",
+              "control_plane_count": "1"
+            },
+            {
+              "name": "tkg-2",
+              "cni": "calico",
+              "antrea_node_port_local": "true",
+              "cluster_cidr": "100.96.0.0/11",
+              "avi_control_plane_ha_provider": "true",
+              "service_cidr": "100.64.0.0/13",
+              "vsphere_network": "segment-tkg",
+              "worker_disk": "20",
+              "worker_memory": "4096",
+              "worker_cpu": "2",
+              "worker_count": "3",
+              "control_plane_disk": "20",
+              "control_plane_memory": "4096",
+              "control_plane_cpu": "2",
+              "control_plane_count": "1"
+            }
+          ]    
+        }
+      }  
+    }

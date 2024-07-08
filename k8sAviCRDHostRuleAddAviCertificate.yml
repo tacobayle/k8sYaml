@@ -1,0 +1,13 @@
+apiVersion: ako.vmware.com/v1alpha1
+kind: HostRule
+metadata:
+  name: my-host-rule2
+  namespace: default
+spec:
+  virtualhost:
+    fqdn: ingress.vcenter.avi.com
+    enableVirtualHost: true
+    tls: # optional
+      sslKeyCertificate:
+        name: System-Default-Cert-EC
+        type: ref

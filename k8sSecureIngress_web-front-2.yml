@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: secure-web-front-2
+spec:
+  tls:
+  - hosts:
+     - tlsweb2.vcenter.avi.com
+    secretName: cert2
+
+  rules:
+    - host: tlsweb2.vcenter.avi.com
+      http:
+        paths:
+          - backend:
+              serviceName: web-front2
+              servicePort: 80
+            path: /

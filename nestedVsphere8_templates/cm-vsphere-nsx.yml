@@ -1,0 +1,180 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-vsphere-nsx
+  namespace: default
+data:
+  variables.json: |
+    {
+      "vsphere_underlay": {
+        "vcsa": "sof2-01-vc08.oc.vmware.com",    
+        "datacenter": "sof2-01-vc08",
+        "cluster": "sof2-01-vc08c01",
+        "datastore": "sof2-01-vc08c01-vsan",
+        "folder": "nic-vsphere-nsx",
+        "networks_vsphere_dual_attached": true,    
+        "networks": {
+          "vsphere": {
+            "management": {
+              "name": "vxw-dvs-34-virtualwire-3-sid-1080002-sof2-01-vc08-avi-mgmt",
+              "cidr": "10.41.132.0/22",
+              "gateway": "10.41.132.1",
+              "esxi_ips": ["10.41.134.171", "10.41.134.172", "10.41.134.173"],
+              "esxi_ips_temp": ["10.41.134.120", "10.41.134.121", "10.41.134.122"],
+              "external_gw_ip": "10.41.134.170",
+              "vcsa_nested_ip": "10.41.134.174",
+              "nsx_nested_ip": "10.41.134.175",
+              "nsx_edge_nested_ips": ["10.41.134.176", "10.41.134.177"]
+            },
+            "vmotion": {
+              "name": "vxw-dvs-34-virtualwire-120-sid-1080119-sof2-01-vc08-avi-dev116",
+              "esxi_ips": ["100.64.132.41", "100.64.132.42", "100.64.132.43"],
+              "cidr": "100.64.132.0/24"
+            },
+            "vsan": {
+              "name": "vxw-dvs-34-virtualwire-119-sid-1080118-sof2-01-vc08-avi-dev115",
+              "esxi_ips": ["100.64.133.41", "100.64.133.42", "100.64.133.43"],
+              "cidr": "100.64.133.0/24"
+            }
+          },
+          "nsx": {
+            "external": {
+              "name": "vxw-dvs-34-virtualwire-124-sid-1080123-sof2-01-vc08-avi-dev120",
+              "tier0_vips": ["172.16.130.110"],
+              "tier0_ips": ["172.16.130.111", "172.16.130.112"],
+              "cidr": "172.16.130.0/24",
+              "external_gw_ip": "172.16.130.100"
+            },
+            "overlay": {
+              "name": "vxw-dvs-34-virtualwire-125-sid-1080124-sof2-01-vc08-avi-dev121",
+              "cidr": "10.8.11.32/27",
+              "external_gw_ip": "10.8.11.33",
+              "nsx_pool": {
+                "start": "10.8.11.34",
+                "end": "10.8.11.62"
+              }
+            },
+            "overlay_edge": {    
+              "cidr": "10.8.11.64/27",
+              "external_gw_ip": "10.8.11.65",
+              "nsx_pool": {
+                "start": "10.8.11.66",
+                "end": "10.8.11.94"
+              }    
+            }
+          }
+        }
+      },
+      "external_gw": {
+       "bind": {
+          "forwarders": ["10.23.108.1", "10.23.108.2", "10.16.142.111"],
+          "domain": "nsx.com"
+        },
+        "ntp": "time.vmware.com"
+      },
+      "vsphere_nested": {
+        "vcsa_name": "vcsa-01",
+        "iso_url": "http://10.41.135.46:8000/VMware-VCSA-all-8.0.2-22617221.iso",
+        "datacenter": "dc1",
+        "cluster_basename": "cluster-",
+        "cluster_esxi_count": 3,    
+        "sso": {
+          "domain_name": "domain.local"
+        },
+        "timezone": "Europe/Paris",
+        "esxi": {
+          "iso_url": "http://10.41.135.46:8000/VMware-VMvisor-Installer-8.0U2-22380479.x86_64.iso",
+          "basename": "esxi-0",
+          "cpu": 24,
+          "memory": 131072,
+          "disks_description": "",    
+          "disks": [
+            {
+              "size": 32,
+              "thin_provisioned": true
+            },
+            {
+              "size": 64,
+              "thin_provisioned": true
+            },
+            {
+              "size": 448,
+              "thin_provisioned": true
+            }
+          ]    
+        }
+      },
+      "nsx": {
+        "ova_url": "http://10.41.135.46:8000/nsx-unified-appliance-4.1.2.0.0.22589046.ova",
+        "nsx_size_description": "medium size will be deployed: 6 cpus, 24576 of memory, 200Go of disk",
+        "config": {
+          "edge_node": {
+            "size": "medium",
+            "basename": "edge-0",
+            "description": "number of edge deployed based on .vsphere_underlay.networks.vsphere.management.nsx_edge_nested_ips"
+          },
+          "edge_clusters":
+          [
+            {
+              "display_name": "my-edge-cluster-01",
+              "members_name": [
+                "edge-01",
+                "edge-02"
+              ]
+            }
+          ],
+          "tier0s":
+          [
+            {
+              "display_name": "my-tier0",
+              "edge_cluster_name": "my-edge-cluster-01"
+            }
+          ],
+          "tier1s":
+          [
+            {
+              "tier0": "my-tier0",
+              "display_name": "my-tier1-A"
+            },
+            {
+              "tier0": "my-tier0",
+              "display_name": "my-tier1-B"
+            }
+          ],
+          "segments_overlay":
+          [
+            {
+              "display_name": "my-segment-mgmt",
+              "tier1": "my-tier1-A",
+              "cidr": "100.100.11.0/24",
+              "dhcp_ranges": ["100.100.11.50-100.100.11.99"]
+            },
+            {
+              "display_name": "my-segment-server-1",
+              "tier1": "my-tier1-A",
+              "cidr": "100.100.21.0/24",
+              "dhcp_ranges": ["100.100.21.50-100.100.21.99"]
+            },
+            {
+              "display_name": "my-segment-server-2",
+              "tier1": "my-tier1-A",
+              "cidr": "100.100.22.0/24",
+              "dhcp_ranges": ["100.100.22.50-100.100.22.99"]
+            },
+            {
+              "display_name": "my-segment-vip-1",
+              "tier1": "my-tier1-A",
+              "cidr": "100.100.31.0/24",
+              "dhcp_ranges": ["100.100.31.50-100.100.31.99"]
+            },
+            {
+              "display_name": "my-segment-vip-2",
+              "tier1": "my-tier1-B",
+              "cidr": "100.100.32.0/24",
+              "dhcp_ranges": ["100.100.32.50-100.100.32.99"]
+            }
+          ]
+        }
+      }
+    }
+

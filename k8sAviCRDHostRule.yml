@@ -1,0 +1,10 @@
+apiVersion: ako.vmware.com/v1alpha1
+kind: HostRule
+metadata:
+  name: my-host-rule1
+  namespace: default
+spec:
+  virtualhost:
+    fqdn: secure-ingress.vcenter.avi.com
+    enableVirtualHost: true
+    wafPolicy: System-WAF-Policy
