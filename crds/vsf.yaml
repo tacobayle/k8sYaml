@@ -1,0 +1,7 @@
+apiVersion: nested.vmware.com/v1alpha1
+kind: vsphere-folder
+metadata:
+  name: my-folder-metadata
+  namespace: default
+spec:
+  name: nic-nested-vcf
