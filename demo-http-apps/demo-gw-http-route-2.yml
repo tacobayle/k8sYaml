@@ -1,0 +1,17 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: my-http-app-v2
+spec:
+  parentRefs:
+    - name: my-gateway
+  hostnames:
+    - "v2.mydomain.com"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: svc-v2
+          port: 80

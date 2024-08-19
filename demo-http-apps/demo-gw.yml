@@ -1,0 +1,20 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: my-gateway
+spec:
+  gatewayClassName: avi-lb
+  listeners:
+    - name: foo-http
+      protocol: HTTP
+      port: 80
+      hostname: "*.mydomain.com"
+    - name: bar-https
+      protocol: HTTPS
+      port: 443
+      hostname: "*.mydomain.com"
+      tls:
+        certificateRefs:
+          - kind: Secret
+            group: ""
+            name: System-Default-Cert-EC
