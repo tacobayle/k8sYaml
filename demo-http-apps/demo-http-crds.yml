@@ -5,18 +5,55 @@ metadata:
   namespace: default
 spec:
   virtualhost:
-    fqdn: ingress.vcenter.alb.com
     enableVirtualHost: true
     wafPolicy: System-WAF-Policy
-    tls: # optional
+    tls:
       sslKeyCertificate:
         name: System-Default-Cert-EC
         type: ref
-#    httpPolicy:
-#      policySets:
-#        - app-hello-world-HTTPPolicySet-0
-    analyticsPolicy: # optional
+    analyticsPolicy:
       fullClientLogs:
         enabled: true
         throttle: HIGH
       logAllHeaders: true
+    fqdn: v1.mydomain.com
+---
+apiVersion: ako.vmware.com/v1alpha1
+kind: HostRule
+metadata:
+  name: my-host-rule2
+  namespace: default
+spec:
+  virtualhost:
+    enableVirtualHost: true
+    wafPolicy: System-WAF-Policy
+    tls:
+      sslKeyCertificate:
+        name: System-Default-Cert-EC
+        type: ref
+    analyticsPolicy:
+      fullClientLogs:
+        enabled: true
+        throttle: HIGH
+      logAllHeaders: true
+    fqdn: v2.mydomain.com
+---
+apiVersion: ako.vmware.com/v1alpha1
+kind: HostRule
+metadata:
+  name: my-host-rule3
+  namespace: default
+spec:
+  virtualhost:
+    enableVirtualHost: true
+    wafPolicy: System-WAF-Policy
+    tls:
+      sslKeyCertificate:
+        name: System-Default-Cert-EC
+        type: ref
+    analyticsPolicy:
+      fullClientLogs:
+        enabled: true
+        throttle: HIGH
+      logAllHeaders: true
+    fqdn: v3.mydomain.com

@@ -4,27 +4,33 @@ metadata:
   name: ingress
 spec:
   rules:
-    - host: ingress.vcenter.alb.com
+    - host: "v1.mydomain.com"
       http:
         paths:
           - pathType: Prefix
-            path: "/v1"
+            path: /
             backend:
               service:
-                name: web-front-1
+                name: svc-v1
                 port:
                   number: 80
+    - host: "v2.mydomain.com"
+      http:
+        paths:
           - pathType: Prefix
-            path: "/v2"
+            path: /
             backend:
               service:
-                name: web-front-2
+                name: svc-v2
                 port:
                   number: 80
+    - host: "v3.mydomain.com"
+      http:
+        paths:
           - pathType: Prefix
-            path: "/v3"
+            path: /
             backend:
               service:
-                name: web-front-3
+                name: svc-v3
                 port:
                   number: 80

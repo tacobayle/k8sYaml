@@ -9,4 +9,4 @@ spec:
       targetPort: 80
       name: eighty
   selector:
-    app: web-front2
+    app: app-selector-v2

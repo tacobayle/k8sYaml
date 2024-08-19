@@ -1,0 +1,19 @@
+apiVersion: ako.vmware.com/v1alpha1
+kind: HostRule
+metadata:
+  name: my-host-rule1
+  namespace: default
+spec:
+  virtualhost:
+    enableVirtualHost: true
+    wafPolicy: System-WAF-Policy
+    tls:
+      sslKeyCertificate:
+        name: System-Default-Cert-EC
+        type: ref
+    analyticsPolicy:
+      fullClientLogs:
+        enabled: true
+        throttle: HIGH
+      logAllHeaders: true
+    fqdn: v1.mydomain.com

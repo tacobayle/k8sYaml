@@ -6,7 +6,7 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: web-front1
+      app: app-selector-v1
   template:
     metadata:
       name: web-front1
@@ -52,7 +52,7 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: web-front2
+      app: app-selector-v2
   template:
     metadata:
       name: web-front2
@@ -98,7 +98,7 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: web-front3
+      app: app-selector-v3
   template:
     metadata:
       name: web-front3
@@ -139,10 +139,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-front-1
+  name: svc-v1
 spec:
   selector:
-    app: web-front1
+    app: app-selector-v1
   ports:
     - protocol: TCP
       port: 80
@@ -151,10 +151,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-front-2
+  name: svc-v2
 spec:
   selector:
-    app: web-front2
+    app: app-selector-v2
   ports:
     - protocol: TCP
       port: 80
@@ -163,10 +163,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-front-3
+  name: svc-v3
 spec:
   selector:
-    app: web-front3
+    app: app-selector-v3
   ports:
     - protocol: TCP
       port: 80
