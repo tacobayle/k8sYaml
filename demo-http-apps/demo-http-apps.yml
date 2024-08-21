@@ -11,7 +11,7 @@ spec:
     metadata:
       name: web-front1
       labels:
-        app: web-front1
+        app: app-selector-v1
     spec:
       containers:
         - name: web-front1
@@ -19,7 +19,7 @@ spec:
           command: [ "sh", "-c"]
           args:
             - while true; do
-              echo -e "HTTP/1.1 200 OK\n\n$(date)\nApp version is $(printenv AppVersion)\nNode is $(printenv MY_NODE_NAME)\nPod is $(printenv MY_POD_NAME)\nNamespace is $(printenv MY_POD_NAMESPACE)\nPod IP is $(printenv MY_POD_IP)\nPod Service account is $(printenv MY_POD_SERVICE_ACCOUNT)" | nc -l -p 80;
+              echo -e "HTTP/1.1 200 OK\n\n$(date)\nApp version is $(printenv AppVersion)\nNode is $(printenv MY_NODE_NAME)\nPod is $(printenv MY_POD_NAME)\nNamespace is $(printenv MY_POD_NAMESPACE)\nPod IP is $(printenv MY_POD_IP)\nPod Service account is $(printenv MY_POD_SERVICE_ACCOUNT)" | nc -l -p 8080;
               done;
           env:
             - name: MY_NODE_NAME
@@ -57,7 +57,7 @@ spec:
     metadata:
       name: web-front2
       labels:
-        app: web-front2
+        app: app-selector-v2
     spec:
       containers:
         - name: web-front2
@@ -65,7 +65,7 @@ spec:
           command: [ "sh", "-c"]
           args:
             - while true; do
-              echo -e "HTTP/1.1 200 OK\n\n$(date)\nApp version is $(printenv AppVersion)\nNode is $(printenv MY_NODE_NAME)\nPod is $(printenv MY_POD_NAME)\nNamespace is $(printenv MY_POD_NAMESPACE)\nPod IP is $(printenv MY_POD_IP)\nPod Service account is $(printenv MY_POD_SERVICE_ACCOUNT)" | nc -l -p 80;
+              echo -e "HTTP/1.1 200 OK\n\n$(date)\nApp version is $(printenv AppVersion)\nNode is $(printenv MY_NODE_NAME)\nPod is $(printenv MY_POD_NAME)\nNamespace is $(printenv MY_POD_NAMESPACE)\nPod IP is $(printenv MY_POD_IP)\nPod Service account is $(printenv MY_POD_SERVICE_ACCOUNT)" | nc -l -p 8080;
               done;
           env:
             - name: MY_NODE_NAME
@@ -103,7 +103,7 @@ spec:
     metadata:
       name: web-front3
       labels:
-        app: web-front3
+        app: app-selector-v3
     spec:
       containers:
         - name: web-front3
@@ -111,7 +111,7 @@ spec:
           command: [ "sh", "-c"]
           args:
             - while true; do
-              echo -e "HTTP/1.1 200 OK\n\n$(date)\nApp version is $(printenv AppVersion)\nNode is $(printenv MY_NODE_NAME)\nPod is $(printenv MY_POD_NAME)\nNamespace is $(printenv MY_POD_NAMESPACE)\nPod IP is $(printenv MY_POD_IP)\nPod Service account is $(printenv MY_POD_SERVICE_ACCOUNT)" | nc -l -p 80;
+              echo -e "HTTP/1.1 200 OK\n\n$(date)\nApp version is $(printenv AppVersion)\nNode is $(printenv MY_NODE_NAME)\nPod is $(printenv MY_POD_NAME)\nNamespace is $(printenv MY_POD_NAMESPACE)\nPod IP is $(printenv MY_POD_IP)\nPod Service account is $(printenv MY_POD_SERVICE_ACCOUNT)" | nc -l -p 8080;
               done;
           env:
             - name: MY_NODE_NAME
@@ -146,7 +146,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
+      targetPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -158,7 +158,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
+      targetPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -170,4 +170,4 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
+      targetPort: 8080

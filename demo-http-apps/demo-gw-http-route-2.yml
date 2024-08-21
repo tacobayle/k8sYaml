@@ -4,9 +4,9 @@ metadata:
   name: my-http-app-v2
 spec:
   parentRefs:
-    - name: my-gateway
+    - name: gw-single-listener
   hostnames:
-    - "v2.mydomain.com"
+    - "gw-v2.mydomain.com"
   rules:
     - matches:
         - path:
