@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-np
+spec:
+  rules:
+    - host: "v1-np.mydomain.com"
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: svc-v1-np
+                port:
+                  number: 80
+    - host: "v2-np.mydomain.com"
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: svc-v2-np
+                port:
+                  number: 80
+    - host: "v3-np.mydomain.com"
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: svc-v3-np
+                port:
+                  number: 80
