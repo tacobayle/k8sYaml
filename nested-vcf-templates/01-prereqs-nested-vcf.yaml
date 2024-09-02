@@ -1,0 +1,184 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nested-vcf
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: vsphere-folders.nested.vmware.com
+spec:
+  group: nested.vmware.com
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                name:
+                  type: string
+  scope: Namespaced
+  names:
+    plural: vsphere-folders
+    singular: vsphere-folder
+    kind: vsphere-folder
+    shortNames:
+      - nvf
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: sddcs.nested.vmware.com
+spec:
+  group: nested.vmware.com
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                vcenter:
+                  type: object
+                  properties:
+                    ip:
+                      type: string
+                    hostname:
+                      type: string
+                    license:
+                      type: string
+                    vmSize:
+                      type: string
+                    storageSize:
+                      type: string
+                    ssoDomain:
+                      type: string
+  scope: Namespaced
+  names:
+    plural: sddcs
+    singular: sddc
+    kind: sddc
+    shortNames:
+      - sddc
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: esxi-groups.nested.vmware.com
+spec:
+  group: nested.vmware.com
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                basename:
+                  type: string
+                iso_url:
+                  type: string
+                folder_ref:
+                  type: string
+                network_ref:
+                  type: string
+                ips:
+                  type: array
+                  items:
+                    type: string
+                cpu:
+                  type: integer
+                memory:
+                  type: integer
+                disk_os_size:
+                  type: string
+                disk_flash_size:
+                  type: string
+                disk_capacity_size:
+                  type: string
+  scope: Namespaced
+  names:
+    plural: esxi-groups
+    singular: esxi-group
+    kind: esxi-group
+    shortNames:
+      - neg
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: cloud-builders.nested.vmware.com
+spec:
+  group: nested.vmware.com
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                name:
+                  type: string
+                ova_url:
+                  type: string
+                folder_ref:
+                  type: string
+                network_ref:
+                  type: string
+                ip:
+                  type: string
+  scope: Namespaced
+  names:
+    plural: cloud-builders
+    singular: cloud-builder
+    kind: cloud-builder
+    shortNames:
+      - ncb
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vcf-sa
+  namespace: nested-vcf
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vcf-cr
+rules:
+  - apiGroups: [""]
+    resources: ["events", "pods", "services", "endpoints"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["nested.vmware.com"]
+    resources: ["*"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vcf-crb
+roleRef:
+  kind: ClusterRole
+  name: vcf-cr
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+  - kind: ServiceAccount
+    name: vcf-sa
+    namespace: nested-vcf
