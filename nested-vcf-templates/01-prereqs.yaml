@@ -6,33 +6,6 @@ metadata:
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  name: vsphere-folders.nested.vmware.com
-spec:
-  group: nested.vmware.com
-  versions:
-    - name: v1alpha1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                name:
-                  type: string
-  scope: Namespaced
-  names:
-    plural: vsphere-folders
-    singular: vsphere-folder
-    kind: vsphere-folder
-    shortNames:
-      - nvf
----
-apiVersion: apiextensions.k8s.io/v1
-kind: CustomResourceDefinition
-metadata:
   name: sddcs.nested.vmware.com
 spec:
   group: nested.vmware.com
@@ -47,6 +20,65 @@ spec:
             spec:
               type: object
               properties:
+                folder:
+                  type: string
+                domain:
+                  type: string
+                esxi:
+                  type: object
+                  properties:
+                    basename:
+                      type: string
+                    iso_url:
+                      type: string
+                    nics:
+                      type: array
+                      items:
+                        type: string
+                    ips:
+                      type: array
+                      items:
+                        type: string
+                    cpu:
+                      type: integer
+                    memory:
+                      type: integer
+                    disk_os_size:
+                      type: string
+                    disk_flash_size:
+                      type: string
+                    disk_capacity_size:
+                      type: string
+                gw:
+                  type: object
+                  properties:
+                    ova_url:
+                      type: string
+                    name:
+                      type: string
+                    network_ref:
+                      type: string
+                    ip:
+                      type: string
+                    dns_forwarders:
+                      type: array
+                      items:
+                        type: string
+                    ntp_masters:
+                      type: array
+                      items:
+                        type: string
+                cloud_builder:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    ova_url:
+                      type: string
+                    network_ref:
+                      type: string
+                    ip:
+                      type: string
                 vcenter:
                   type: object
                   properties:
@@ -62,6 +94,41 @@ spec:
                       type: string
                     ssoDomain:
                       type: string
+                    networks:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                          cidr:
+                            type: string
+                          gw:
+                            type: string
+                          vlan_id:
+                            type: integer
+                vsphere_underlay:
+                  type: object
+                  properties:
+                    vcsa:
+                      type: string
+                    datacenter:
+                      type: string
+                    cluster:
+                      type: string
+                    datastore:
+                      type: string
+                    networks:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          ref:
+                            type: string
+                          cidr:
+                            type: string
+                          gw:
+                            type: string
                 vsan:
                   type: object
                   properties:
@@ -74,104 +141,6 @@ spec:
     kind: sddc
     shortNames:
       - sddc
----
-apiVersion: apiextensions.k8s.io/v1
-kind: CustomResourceDefinition
-metadata:
-  name: esxi-groups.nested.vmware.com
-spec:
-  group: nested.vmware.com
-  versions:
-    - name: v1alpha1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                basename:
-                  type: string
-                iso_url:
-                  type: string
-                folder_ref:
-                  type: string
-                network_ref:
-                  type: string
-                dns_servers:
-                  type: array
-                  items:
-                    type: string
-                ntp_servers:
-                  type: array
-                  items:
-                    type: string
-                ips:
-                  type: array
-                  items:
-                    type: string
-                cpu:
-                  type: integer
-                memory:
-                  type: integer
-                disk_os_size:
-                  type: string
-                disk_flash_size:
-                  type: string
-                disk_capacity_size:
-                  type: string
-  scope: Namespaced
-  names:
-    plural: esxi-groups
-    singular: esxi-group
-    kind: esxi-group
-    shortNames:
-      - neg
----
-apiVersion: apiextensions.k8s.io/v1
-kind: CustomResourceDefinition
-metadata:
-  name: cloud-builders.nested.vmware.com
-spec:
-  group: nested.vmware.com
-  versions:
-    - name: v1alpha1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                name:
-                  type: string
-                ova_url:
-                  type: string
-                folder_ref:
-                  type: string
-                network_ref:
-                  type: string
-                ip:
-                  type: string
-                dns_servers:
-                  type: array
-                  items:
-                    type: string
-                ntp_servers:
-                  type: array
-                  items:
-                    type: string
-  scope: Namespaced
-  names:
-    plural: cloud-builders
-    singular: cloud-builder
-    kind: cloud-builder
-    shortNames:
-      - ncb
 ---
 apiVersion: v1
 kind: ServiceAccount

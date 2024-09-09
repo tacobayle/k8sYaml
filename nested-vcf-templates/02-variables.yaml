@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nested-vsphere-external
+  namespace: nested-vcf
+type: kubernetes.io/basic-auth
+stringData:
+  username: username
+  password: password
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nested-cloud-builder
+  namespace: nested-vcf
+type: kubernetes.io/basic-auth
+stringData:
+  password: password
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nested-esxi
+  namespace: nested-vcf
+type: kubernetes.io/basic-auth
+stringData:
+  password: password
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nested-vcenter
+  namespace: nested-vcf
+type: kubernetes.io/basic-auth
+stringData:
+  password: password
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: external-gw-password
+  namespace: nested-vcf
+type: kubernetes.io/basic-auth
+stringData:
+  password: password
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vcf-slack
+  namespace: nested-vcf
+type: Opaque
+stringData:
+  webhook_url: webhook_url

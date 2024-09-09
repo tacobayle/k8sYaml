@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-nested-vcf
+  namespace: nested-vcf
+spec:
+  serviceAccountName: vcf-sa
+  containers:
+    - name: container-nested-vcf
+      image: tacobayle/alpine-vcf:latest
+      env:
+        - name: vsphere_external_username
+          valueFrom:
+            secretKeyRef:
+              name: nested-vsphere-external
+              key: username
+        - name: vsphere_external_password
+          valueFrom:
+            secretKeyRef:
+              name: nested-vsphere-external
+              key: password
+        - name: external_gw_password
+          valueFrom:
+            secretKeyRef:
+              name: external-gw-password
+              key: password
+        - name: NESTED_ESXI_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nested-esxi
+              key: password
+        - name: NESTED_VCENTER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nested-vcenter
+              key: password
+        - name: cloud_builder_password
+          valueFrom:
+            secretKeyRef:
+              name: nested-cloud-builder
+              key: password
+        - name: slack_webhook_url
+          valueFrom:
+            secretKeyRef:
+              name: vcf-slack
+              key: webhook_url
+  restartPolicy: Never
