@@ -79,34 +79,55 @@ spec:
                       type: string
                     ip:
                       type: string
-                vcenter:
+                sddc:
                   type: object
                   properties:
-                    ip:
+                    basename:
                       type: string
-                    hostname:
-                      type: string
-                    license:
-                      type: string
-                    vmSize:
-                      type: string
-                    storageSize:
-                      type: string
-                    ssoDomain:
-                      type: string
-                    networks:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
+                    manager:
+                      type: object
+                      properties:
+                        ip:
+                          type: string
+                    nsx:
+                      type: object
+                      properties:
+                        size:
+                          type: string
+                        ips:
+                          type: array
+                          items:
                             type: string
-                          cidr:
-                            type: string
-                          gw:
-                            type: string
-                          vlan_id:
-                            type: integer
+                        vip:
+                          type: string
+                        vtep_pool:
+                          type: string
+                    vcenter:
+                      type: object
+                      properties:
+                        ip:
+                          type: string
+                        vmSize:
+                          type: string
+                        vsanPool:
+                          type: string
+                        vmotionPool:
+                          type: string
+                        ssoDomain:
+                          type: string
+                        networks:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              type:
+                                type: string
+                              cidr:
+                                type: string
+                              gw:
+                                type: string
+                              vlan_id:
+                                type: integer
                 vsphere_underlay:
                   type: object
                   properties:

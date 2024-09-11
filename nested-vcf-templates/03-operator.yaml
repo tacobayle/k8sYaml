@@ -9,37 +9,47 @@ spec:
     - name: container-nested-vcf
       image: tacobayle/alpine-vcf:latest
       env:
-        - name: vsphere_external_username
+        - name: VSPHERE_EXTERNAL_USERNAME
           valueFrom:
             secretKeyRef:
               name: nested-vsphere-external
               key: username
-        - name: vsphere_external_password
+        - name: VSPHERE_EXTERNAL_PASSWORD
           valueFrom:
             secretKeyRef:
               name: nested-vsphere-external
               key: password
-        - name: external_gw_password
+        - name: EXTERNAL_GW_PASSWORD
           valueFrom:
             secretKeyRef:
               name: external-gw-password
               key: password
-        - name: NESTED_ESXI_PASSWORD
+        - name: ESXI_PASSWORD
           valueFrom:
             secretKeyRef:
               name: nested-esxi
               key: password
-        - name: NESTED_VCENTER_PASSWORD
+        - name: VCENTER_PASSWORD
           valueFrom:
             secretKeyRef:
               name: nested-vcenter
               key: password
-        - name: cloud_builder_password
+        - name: NSX_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nsx
+              key: password
+        - name: SDDC_MANAGER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sddc-manager
+              key: password
+        - name: CLOUD_BUILDER_PASSWORD
           valueFrom:
             secretKeyRef:
               name: nested-cloud-builder
               key: password
-        - name: slack_webhook_url
+        - name: SLACK_WEBHOOK_URL
           valueFrom:
             secretKeyRef:
               name: vcf-slack

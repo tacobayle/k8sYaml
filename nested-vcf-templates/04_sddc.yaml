@@ -36,30 +36,43 @@ spec:
     ova_url: http://10.6.248.129:8000/VMware-Cloud-Builder-5.2.0.0-24108943_OVF10.ova
     network_ref: ams-cm2w1-nsx1-avi-mgmt
     ip: 10.6.248.71
-  vcenter:
-    ip: 1.1.1.1
-    hostname: vcsa
-    license: ""
-    vmSize: "small"
-    storageSize: ""
-    ssoDomain: "vsphere.local"
-    networks:
-      - type: MANAGEMENT
-        cidr: 172.16.1.0/24
-        gw: 172.16.1.1
-        vlan_id: 2048
-      - type: VSAN
-        cidr: 172.16.2.0/24
-        gw: 172.16.2.1
-        vlan_id: 2049
-      - type: VMOTION
-        cidr: 172.16.3.0/24
-        gw: 172.16.3.1
-        vlan_id: 2050
-      - type: VM_MANAGEMENT
-        cidr: 172.16.4.0/24
-        gw: 172.16.4.1
-        vlan_id: 2051
+  sddc:
+    basename: sddc01
+    manager:
+      ip: 172.16.4.11
+    nsx:
+      size: medium
+      ips:
+        - 172.16.4.13
+      vip: 172.16.4.14
+      vtep_pool: 172.16.5.101-172.16.5.109
+    vcenter:
+      ip: 172.16.4.12
+      vmSize: "small"
+      ssoDomain: "vsphere.local"
+      vsanPool: 172.16.2.101-172.16.2.109
+      vmotionPool: 172.16.3.101-172.16.3.109
+      networks:
+        - type: MANAGEMENT
+          cidr: 172.16.1.0/24
+          gw: 172.16.1.1
+          vlan_id: 2048
+        - type: VSAN
+          cidr: 172.16.2.0/24
+          gw: 172.16.2.1
+          vlan_id: 2049
+        - type: VMOTION
+          cidr: 172.16.3.0/24
+          gw: 172.16.3.1
+          vlan_id: 2050
+        - type: VM_MANAGEMENT
+          cidr: 172.16.4.0/24
+          gw: 172.16.4.1
+          vlan_id: 2051
+        - type: OVERLAY
+          cidr: 172.16.5.0/24
+          gw: 172.16.5.1
+          vlan_id: 2052
   vsan:
     license: ""
   vsphere_underlay:

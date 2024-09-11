@@ -29,6 +29,24 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
+  name: nsx
+  namespace: nested-vcf
+type: kubernetes.io/basic-auth
+stringData:
+  password: password
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sddc-manager
+  namespace: nested-vcf
+type: kubernetes.io/basic-auth
+stringData:
+  password: password
+---
+apiVersion: v1
+kind: Secret
+metadata:
   name: nested-vcenter
   namespace: nested-vcf
 type: kubernetes.io/basic-auth
