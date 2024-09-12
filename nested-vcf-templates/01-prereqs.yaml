@@ -27,8 +27,6 @@ spec:
                 esxi:
                   type: object
                   properties:
-                    basename:
-                      type: string
                     iso_url:
                       type: string
                     nics:
@@ -150,11 +148,6 @@ spec:
                             type: string
                           gw:
                             type: string
-                vsan:
-                  type: object
-                  properties:
-                    license:
-                      type: string
   scope: Namespaced
   names:
     plural: sddcs

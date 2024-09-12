@@ -16,7 +16,6 @@ spec:
     ntp_masters:
       - ntp.broadcom.net
   esxi:
-    basename: nic-mgmt-esxi-0
     iso_url: http://10.6.248.129:8000/VMware-VMvisor-Installer-8.0U3-24022510.x86_64.iso
     ips:
       - 172.16.1.11
@@ -69,12 +68,14 @@ spec:
           cidr: 172.16.4.0/24
           gw: 172.16.4.1
           vlan_id: 2051
-        - type: OVERLAY
+        - type: HOST_OVERLAY
           cidr: 172.16.5.0/24
           gw: 172.16.5.1
           vlan_id: 2052
-  vsan:
-    license: ""
+        - type: EDGE_OVERLAY
+          cidr: 172.16.6.0/24
+          gw: 172.16.6.1
+          vlan_id: 2053
   vsphere_underlay:
     vcsa: https://ams-cm2w1-vc1.ams.broadcom.net
     datacenter: ams-cm2w1-vc1
