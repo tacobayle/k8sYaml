@@ -24,6 +24,9 @@ spec:
                   type: string
                 domain:
                   type: string
+                  pattern: ^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z0-9]{1,6}\.?[a-zA-Z0-9-]*\.?$
+                affinity:
+                  type: boolean
                 esxi:
                   type: object
                   properties:
@@ -37,6 +40,7 @@ spec:
                       type: array
                       items:
                         type: string
+                        format: ipv4
                     cpu:
                       type: integer
                     memory:
@@ -58,10 +62,12 @@ spec:
                       type: string
                     ip:
                       type: string
+                      format: ipv4
                     dns_forwarders:
                       type: array
                       items:
                         type: string
+                        format: ipv4
                     ntp_masters:
                       type: array
                       items:
@@ -77,6 +83,7 @@ spec:
                       type: string
                     ip:
                       type: string
+                      format: ipv4
                 sddc:
                   type: object
                   properties:
@@ -87,6 +94,7 @@ spec:
                       properties:
                         ip:
                           type: string
+                          format: ipv4
                     nsx:
                       type: object
                       properties:
@@ -96,8 +104,10 @@ spec:
                           type: array
                           items:
                             type: string
+                            format: ipv4
                         vip:
                           type: string
+                          format: ipv4
                         vtep_pool:
                           type: string
                     vcenter:
@@ -105,6 +115,7 @@ spec:
                       properties:
                         ip:
                           type: string
+                          format: ipv4
                         vmSize:
                           type: string
                         vsanPool:
@@ -122,10 +133,13 @@ spec:
                                 type: string
                               cidr:
                                 type: string
+                                pattern: ^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d{1,2}$
                               gw:
                                 type: string
                               vlan_id:
                                 type: integer
+                                minimum: 1
+                                maximum: 4094
                 vsphere_underlay:
                   type: object
                   properties:

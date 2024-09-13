@@ -5,8 +5,8 @@ metadata:
   namespace: nested-vcf
 type: kubernetes.io/basic-auth
 stringData:
-  username: username
-  password: password
+  username: ${username}
+  password: ${password}
 ---
 apiVersion: v1
 kind: Secret
@@ -15,7 +15,7 @@ metadata:
   namespace: nested-vcf
 type: kubernetes.io/basic-auth
 stringData:
-  password: password
+  password: ${password}
 ---
 apiVersion: v1
 kind: Secret
@@ -24,7 +24,7 @@ metadata:
   namespace: nested-vcf
 type: kubernetes.io/basic-auth
 stringData:
-  password: password
+  password: ${password}
 ---
 apiVersion: v1
 kind: Secret
@@ -33,7 +33,7 @@ metadata:
   namespace: nested-vcf
 type: kubernetes.io/basic-auth
 stringData:
-  password: password
+  password: ${password}
 ---
 apiVersion: v1
 kind: Secret
@@ -42,7 +42,7 @@ metadata:
   namespace: nested-vcf
 type: kubernetes.io/basic-auth
 stringData:
-  password: password
+  password: ${password}
 ---
 apiVersion: v1
 kind: Secret
@@ -51,7 +51,7 @@ metadata:
   namespace: nested-vcf
 type: kubernetes.io/basic-auth
 stringData:
-  password: password
+  password: ${password}
 ---
 apiVersion: v1
 kind: Secret
@@ -60,7 +60,7 @@ metadata:
   namespace: nested-vcf
 type: kubernetes.io/basic-auth
 stringData:
-  password: password
+  password: ${password}
 ---
 apiVersion: v1
 kind: Secret
@@ -69,4 +69,4 @@ metadata:
   namespace: nested-vcf
 type: Opaque
 stringData:
-  webhook_url: webhook_url
+  webhook_url: ${webhook_url}

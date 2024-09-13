@@ -6,6 +6,7 @@ metadata:
 spec:
   folder: nic-nested-vcf
   domain: sddc.com
+  affinity: true
   gw:
     ova_url: http://10.6.248.129:8000/focal-server-cloudimg-amd64.ova
     network_ref: ams-cm2w1-nsx1-avi-mgmt
