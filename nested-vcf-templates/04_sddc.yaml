@@ -37,6 +37,7 @@ spec:
     network_ref: ams-cm2w1-nsx1-avi-mgmt
     ip: 10.6.248.71
   sddc:
+    create: true
     basename: sddc01
     manager:
       ip: 172.16.4.11

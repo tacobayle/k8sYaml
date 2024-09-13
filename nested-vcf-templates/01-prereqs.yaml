@@ -24,7 +24,6 @@ spec:
                   type: string
                 domain:
                   type: string
-                  pattern: ^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z0-9]{1,6}\.?[a-zA-Z0-9-]*\.?$
                 affinity:
                   type: boolean
                 esxi:
@@ -87,6 +86,8 @@ spec:
                 sddc:
                   type: object
                   properties:
+                    create:
+                      type: boolean
                     basename:
                       type: string
                     manager:
