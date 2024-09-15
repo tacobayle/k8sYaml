@@ -6,3 +6,4 @@ terraform.tfstate.lock.info
 .idea/
 nestedVsphere8
 nested-vcf
+nested-vsphere

@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-vsphere
+spec:
+  serviceAccountName: vsphere-sa
+  containers:
+    - name: container-vsphere
+      image: tacobayle/alpine-nested-vsphere:8
+      env:
+        - name: VSPHERE_EXTERNAL_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: nested-vsphere-external
+              key: username
+        - name: VSPHERE_EXTERNAL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nested-vsphere-external
+              key: password
+        - name: GENERIC_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: generic-password
+              key: password
+        - name: SLACK_WEBHOOK_URL
+          valueFrom:
+            secretKeyRef:
+              name: vcf-slack
+              key: webhook_url
+  restartPolicy: Never
