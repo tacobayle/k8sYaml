@@ -8,7 +8,7 @@ spec:
   domain: sddc.com
   affinity: true
   gw:
-    ova_url: http://10.6.248.129:8000/focal-server-cloudimg-amd64.ova
+    ova_url: http://10.6.248.79:8000/focal-server-cloudimg-amd64.ova
     network_ref: ams-cm2w1-nsx1-avi-mgmt
     ip: 10.6.248.70
     name: nic-mgmt-esxi-external-gw
@@ -17,27 +17,39 @@ spec:
     ntp_masters:
       - ntp.broadcom.net
   esxi:
-    iso_url: http://10.6.248.129:8000/VMware-VMvisor-Installer-8.0U3-24022510.x86_64.iso
+    iso_url: http://10.6.248.79:8000/VMware-VMvisor-Installer-8.0U3-24022510.x86_64.iso
     ips:
-      - 172.16.1.11
-      - 172.16.1.12
-      - 172.16.1.13
-      - 172.16.1.14
-    cpu: 24
-    memory: 131072 # in MB
-    disk_os_size: 32G
-    disk_flash_size: 64G
-    disk_capacity_size: 448G
+      - 11
+      - 12
+      - 13
+      - 14
+      - 21
+      - 22
+      - 23
+      - 24
+    sizing_mgmt:
+      cpu: 24
+      memory: 131072 # in MB
+      disk_os_size: 32G
+      disk_flash_size: 64G
+      disk_capacity_size: 448G
+    sizing_workload:
+      cpu: 8
+      memory: 32768 # in MB
+      disk_os_size: 32G
+      disk_flash_size: 16G
+      disk_capacity_size: 112G
     nics:
       - nic-trunk-1
       - nic-trunk-2
   cloud_builder:
     name: vcf-cloud-builder
-    ova_url: http://10.6.248.129:8000/VMware-Cloud-Builder-5.2.0.0-24108943_OVF10.ova
+    ova_url: http://10.6.248.79:8000/VMware-Cloud-Builder-5.2.0.0-24108943_OVF10.ova
     network_ref: ams-cm2w1-nsx1-avi-mgmt
     ip: 10.6.248.71
   sddc:
-    create: true
+    create_mgmt: true
+    create_wld: true
     basename: sddc01
     manager:
       ip: 172.16.4.11
