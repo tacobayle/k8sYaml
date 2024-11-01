@@ -38,18 +38,35 @@ spec:
                     ips:
                       type: array
                       items:
-                        type: string
-                        format: ipv4
-                    cpu:
-                      type: integer
-                    memory:
-                      type: integer
-                    disk_os_size:
-                      type: string
-                    disk_flash_size:
-                      type: string
-                    disk_capacity_size:
-                      type: string
+                        type: integer
+                      minItems: 4
+                      multipleOf: 4
+                    sizing_mgmt:
+                      type: object
+                      properties:
+                        cpu:
+                          type: integer
+                        memory:
+                          type: integer
+                        disk_os_size:
+                          type: string
+                        disk_flash_size:
+                          type: string
+                        disk_capacity_size:
+                          type: string
+                    sizing_workload:
+                      type: object
+                      properties:
+                        cpu:
+                          type: integer
+                        memory:
+                          type: integer
+                        disk_os_size:
+                          type: string
+                        disk_flash_size:
+                          type: string
+                        disk_capacity_size:
+                          type: string
                 gw:
                   type: object
                   properties:
@@ -86,7 +103,9 @@ spec:
                 sddc:
                   type: object
                   properties:
-                    create:
+                    create_mgmt:
+                      type: boolean
+                    create_wld:
                       type: boolean
                     basename:
                       type: string
