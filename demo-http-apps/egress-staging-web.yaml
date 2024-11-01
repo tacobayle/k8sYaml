@@ -1,0 +1,13 @@
+apiVersion: crd.antrea.io/v1beta1
+kind: Egress
+metadata:
+  name: egress-staging-web
+spec:
+  appliedTo:
+    namespaceSelector:
+      matchLabels:
+        kubernetes.io/metadata.name: staging
+    podSelector:
+      matchLabels:
+        app: web
+  externalIPPool: external-ip-pool-staging

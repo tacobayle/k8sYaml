@@ -1,0 +1,13 @@
+apiVersion: crd.antrea.io/v1beta1
+kind: Egress
+metadata:
+  name: egress-production-web
+spec:
+  appliedTo:
+    namespaceSelector:
+      matchLabels:
+        kubernetes.io/metadata.name: production
+    podSelector:
+      matchLabels:
+        app: web
+  externalIPPool: external-ip-pool-production
