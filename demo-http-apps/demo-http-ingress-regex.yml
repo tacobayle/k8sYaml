@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+spec:
+  ingressClassName: avi-lb
+  rules:
+    - host: ingress-regex.mydomain.com #Provide Your Hostname here
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/v1[0-9]+$"
+            backend:
+              service:
+                name: svc-v1
+                port:
+                  number: 80

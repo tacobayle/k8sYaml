@@ -1,0 +1,9 @@
+apiVersion: ako.vmware.com/v1beta1
+kind: HostRule
+metadata:
+  name: regex-rule
+spec:
+  virtualhost:
+    fqdn: ingress-regex.mydomain.com # mandatory
+    fqdnType: Exact
+    useRegex: True
