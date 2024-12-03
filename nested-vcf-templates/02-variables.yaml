@@ -20,43 +20,7 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: nested-esxi
-  namespace: nested-vcf
-type: kubernetes.io/basic-auth
-stringData:
-  password: ${password}
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: nsx
-  namespace: nested-vcf
-type: kubernetes.io/basic-auth
-stringData:
-  password: ${password}
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: sddc-manager
-  namespace: nested-vcf
-type: kubernetes.io/basic-auth
-stringData:
-  password: ${password}
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: nested-vcenter
-  namespace: nested-vcf
-type: kubernetes.io/basic-auth
-stringData:
-  password: ${password}
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: external-gw-password
+  name: generic-password
   namespace: nested-vcf
 type: kubernetes.io/basic-auth
 stringData:
@@ -70,3 +34,13 @@ metadata:
 type: Opaque
 stringData:
   webhook_url: ${webhook_url}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sddc-manager-depot
+  namespace: nested-vcf
+type: kubernetes.io/basic-auth
+stringData:
+  username: username
+  password: password
