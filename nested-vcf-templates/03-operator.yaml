@@ -19,30 +19,10 @@ spec:
             secretKeyRef:
               name: nested-vsphere-external
               key: password
-        - name: EXTERNAL_GW_PASSWORD
+        - name: GENERIC_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: external-gw-password
-              key: password
-        - name: ESXI_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: nested-esxi
-              key: password
-        - name: VCENTER_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: nested-vcenter
-              key: password
-        - name: NSX_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: nsx
-              key: password
-        - name: SDDC_MANAGER_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: sddc-manager
+              name: generic-password
               key: password
         - name: CLOUD_BUILDER_PASSWORD
           valueFrom:
@@ -54,4 +34,14 @@ spec:
             secretKeyRef:
               name: vcf-slack
               key: webhook_url
+        - name: DEPOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: sddc-manager-depot
+              key: username
+        - name: DEPOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sddc-manager-depot
+              key: password
   restartPolicy: Never
