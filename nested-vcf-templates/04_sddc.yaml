@@ -39,16 +39,16 @@ spec:
       disk_flash_size: 16G
       disk_capacity_size: 112G
     nics:
-      - nic-trunk-1
-      - nic-trunk-2
+      - nic-trunk-1 # Forget Transmit & MAC Learning Enabled on Portgroup
+      - nic-trunk-2 # Forget Transmit & MAC Learning Enabled on Portgroup
   cloud_builder:
     name: vcf-cloud-builder
     ova_url: http://10.6.248.79:8000/VMware-Cloud-Builder-5.2.1.0-24307856_OVF10.ova
     network_ref: ams-cm2w1-nsx1-avi-mgmt
     ip: 10.6.248.71
   sddc:
-    create_mgmt: true
-    create_wld: true
+    create_mgmt: true #
+    create_wld: true #
     basename: sddc01
     manager:
       ip: 11 # tapping on VM_MANAGEMENT

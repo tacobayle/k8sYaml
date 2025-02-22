@@ -4,7 +4,7 @@ metadata:
   name: my-http-app-v1-v2-np
 spec:
   parentRefs:
-    - name: gw-single-listener
+    - name: gw-multiple-listeners
   hostnames:
     - "gw-migration-np.mydomain.com"
   rules:

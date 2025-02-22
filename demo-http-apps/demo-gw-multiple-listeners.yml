@@ -17,4 +17,4 @@ spec:
         certificateRefs:
           - kind: Secret
             group: ""
-            name: System-Default-Cert-EC
+            name: cert01

@@ -4,7 +4,7 @@ metadata:
   name: my-http-app-v2
 spec:
   parentRefs:
-    - name: gw-single-listener
+    - name: gw-multiple-listeners
   hostnames:
     - "gw-v2.mydomain.com"
   rules:
