@@ -1,0 +1,12 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: route1.mydomain.com
+spec:
+  host: route1.mydomain.com
+  path: "/"
+  to:
+    kind: Service
+    name: svc-v1
+  port:
+    targetPort: 8080
