@@ -1,0 +1,23 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: gw-multiple-listeners-static-ip
+spec:
+  addresses:
+    - type: IPAddress
+      value: 192.168.201.13
+  gatewayClassName: avi-lb
+  listeners:
+    - name: foo-http
+      protocol: HTTP
+      port: 80
+      hostname: "static-ip.mydomain.com"
+    - name: bar-https
+      protocol: HTTPS
+      port: 443
+      hostname: "static-ip.mydomain.com"
+      tls:
+        certificateRefs:
+          - kind: Secret
+            group: ""
+            name: cert01

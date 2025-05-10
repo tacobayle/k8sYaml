@@ -1,0 +1,100 @@
+apiVersion: nested.vmware.com/v1alpha1
+kind: sddc
+metadata:
+  name: sddc01
+  namespace: nested-vcf
+spec:
+  folder: nic-nested-vcf
+  domain: vcf.com
+  affinity: true
+  gw:
+    ova_url: http://10.6.248.79:8000/focal-server-cloudimg-amd64.ova
+    network_ref: ams-cm2w1-nsx1-avi-mgmt
+    ip: 10.6.248.70
+    dns_forwarders:
+      - 192.19.189.10
+    ntp_masters:
+      - ntp.broadcom.net
+  esxi:
+    iso_url: http://10.6.248.79:8000/VMware-VMvisor-Installer-8.0U3b-24280767.x86_64.iso
+    ips:
+      - 11 # tapping on MANAGEMENT
+      - 12 # tapping on MANAGEMENT
+      - 13 # tapping on MANAGEMENT
+      - 14 # tapping on MANAGEMENT
+      - 21 # tapping on MANAGEMENT
+      - 22 # tapping on MANAGEMENT
+      - 23 # tapping on MANAGEMENT
+      - 24 # tapping on MANAGEMENT
+    sizing_mgmt: # applied for the 4 first ESXi hosts
+      cpu: 24
+      memory: 131072 # in MB
+      disk_os_size: 32G
+      disk_flash_size: 64G
+      disk_capacity_size: 448G
+    sizing_workload: # applied from the fifth ESXi host
+      cpu: 8
+      memory: 32768 # in MB
+      disk_os_size: 32G
+      disk_flash_size: 16G
+      disk_capacity_size: 112G
+    nics:
+      - nic-trunk-1 # Forget Transmit & MAC Learning Enabled on Portgroup
+      - nic-trunk-2 # Forget Transmit & MAC Learning Enabled on Portgroup
+  cloud_builder:
+    name: vcf-cloud-builder
+    ova_url: http://10.6.248.79:8000/VCF-SDDC-Manager-Appliance-9.0.0.0.24624882.ova
+    network_ref: ams-cm2w1-nsx1-avi-mgmt
+    ip: 10.6.248.71
+  sddc:
+    create_mgmt: true #
+    create_wld: true #
+    basename: sddc01
+    manager:
+      ip: 11 # tapping on VM_MANAGEMENT
+    nsx:
+      size: medium
+      ips:
+        - 13 # tapping on VM_MANAGEMENT
+      vip: 14 # tapping on VM_MANAGEMENT
+      vtep_pool: 101-109 # tapping on HOST_OVERLAY
+    vcenter:
+      ip: 12 # tapping on VM_MANAGEMENT
+      vmSize: "small"
+      ssoDomain: "vsphere.local"
+      vsanPool: 101-119 # tapping on VSAN
+      vmotionPool: 101-119 # tapping on VMOTION
+      networks:
+        - type: MANAGEMENT
+          cidr: 172.16.1.0/24 # has to be /24 ; gw will use .1
+          vlan_id: 2048
+        - type: VSAN
+          cidr: 172.16.2.0/24 # has to be /24 ; gw will use .1
+          vlan_id: 2049
+        - type: VMOTION
+          cidr: 172.16.3.0/24 # has to be /24 ; gw will use .1
+          vlan_id: 2050
+        - type: VM_MANAGEMENT
+          cidr: 172.16.4.0/24 # has to be /24 ; gw will use .1
+          vlan_id: 2051
+        - type: HOST_OVERLAY
+          cidr: 172.16.5.0/24 # has to be /24 ; gw will use .1
+          vlan_id: 2052
+        - type: EDGE_OVERLAY
+          cidr: 172.16.6.0/24 # has to be /24 ; gw will use .1
+          vlan_id: 2053
+    avi:
+      ips:
+        - 15 # tapping on VM_MANAGEMENT - this will only create DNS entry
+        - 16 # tapping on VM_MANAGEMENT - this will only create DNS entry
+        - 17 # tapping on VM_MANAGEMENT - this will only create DNS entry
+      vip: 18 # tapping on VM_MANAGEMENT - this will only create DNS entry
+  vsphere_underlay:
+    vcsa: https://ams-cm2w1-vc1.ams.broadcom.net
+    datacenter: ams-cm2w1-vc1
+    cluster: ams-cm2w1-vc1-c1
+    datastore: ams-cm2w1-vc1-c1-vsan
+    networks:
+      - ref: ams-cm2w1-nsx1-avi-mgmt
+        cidr: 10.6.248.0/24
+        gw: 10.6.248.1
