@@ -1,0 +1,10 @@
+---
+apiVersion: ako.vmware.com/v1alpha2
+kind: L7Rule
+metadata:
+  name: gw-sec
+  namespace: default
+spec:
+  wafPolicy:
+    kind: AviRef
+    name: System-WAF-Policy

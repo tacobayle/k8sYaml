@@ -1,0 +1,13 @@
+apiVersion: ako.vmware.com/v1alpha1
+kind: RouteBackendExtension
+metadata:
+  name: my-route-backend-extension
+  namespace: default
+spec:
+  # Load balancing configuration
+
+  # Backend TLS/SSL configuration
+  backendTLS:
+    hostCheckEnabled: true
+    domainName:
+      - "app.avi.com"

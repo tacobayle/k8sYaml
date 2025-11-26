@@ -1,0 +1,7 @@
+apiVersion: ako.vmware.com/v1beta1
+kind: AviInfraSetting
+metadata:
+name: my-infra-setting
+spec:
+seGroup:
+  name: dedicated-seg
