@@ -8,10 +8,27 @@ spec:
   hostnames:
     - "gw-v3.mydomain.com"
   rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /
+    - filters:
+        - type: ExtensionRef
+          extensionRef:
+            group: ako.vmware.com
+            kind: L7Rule
+            name: gw-sec
+      matches:
+          - path:
+              type: PathPrefix
+              value: /
       backendRefs:
         - name: svc-v3
           port: 80
+          filters:
+            - type: ExtensionRef
+              extensionRef:
+                group: ako.vmware.com
+                kind: HealthMonitor
+                name: my-health-monitor
+            - type: ExtensionRef
+              extensionRef:
+                group: ako.vmware.com
+                kind: RouteBackendExtension
+                name: my-route-backend-extension
