@@ -8,3 +8,9 @@ spec:
   wafPolicy:
     kind: AviRef
     name: System-WAF-Policy
+  analyticsPolicy:
+    fullClientLogs:
+      enabled: true
+      throttle: HIGH
+      duration: 0
+    logAllHeaders: true
