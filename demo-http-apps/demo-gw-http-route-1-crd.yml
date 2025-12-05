@@ -1,0 +1,34 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: my-http-app-v1
+spec:
+  parentRefs:
+    - name: gw-multiple-listeners
+  rules:
+    - filters:
+        - type: ExtensionRef
+          extensionRef:
+            group: ako.vmware.com
+            kind: L7Rule
+            name: gw-sec
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: svc-v1
+          port: 80
+          filters:
+            - type: ExtensionRef
+              extensionRef:
+                group: ako.vmware.com
+                kind: HealthMonitor
+                name: my-health-monitor
+            - type: ExtensionRef
+              extensionRef:
+                group: ako.vmware.com
+                kind: RouteBackendExtension
+                name: my-route-backend-extension
+  hostnames:
+    - "gw-v1.mydomain.com"

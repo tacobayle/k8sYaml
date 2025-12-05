@@ -5,9 +5,15 @@ metadata:
   namespace: default
 spec:
   # Load balancing configuration
+  lbAlgorithm: LB_ALGORITHM_CONSISTENT_HASH
+  lbAlgorithmHash: LB_ALGORITHM_CONSISTENT_HASH_CUSTOM_HEADER
+  lbAlgorithmConsistentHashHdr: "X-Forwarded-For"
+
+  # Session persistence configuration
+  persistenceProfile: System-Persistence-Client-IP
 
   # Backend TLS/SSL configuration
   backendTLS:
     hostCheckEnabled: true
     domainName:
-      - "app.avi.com"
+      - "app.mydomain.com"
